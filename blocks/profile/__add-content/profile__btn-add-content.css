@@ -1,0 +1,21 @@
+.profile__btn-add-content {
+  width: 282px;
+  height: 50px;
+  background-color: #000000;
+  padding: 0;
+  border-style: solid;
+  border-radius: 2px;
+  border-color: #ffffff;
+  border-width: 2px;
+  margin: 36px 0 0;
+  background-image: url(../../../images/btn-add_Vector.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  transition: opacity 0.5s linear;
+}
+
+.profile__btn-add-content:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

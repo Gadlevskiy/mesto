@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
-    <meta name="description" content="Mesto">
-    <meta name="author" content="Гадлевский Алексей">
-    <title>Mesto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <meta name="description" content="Mesto">
+  <meta name="author" content="Гадлевский Алексей">
+  <title>Mesto</title>
 </head>
+
 <body>
   <div class="page">
     <header class="header">
@@ -16,9 +18,11 @@
     <main class="content">
       <div class="profile">
         <img class="profile__photo" src="./images/Avatar.jpg" alt="Фото профиля">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__description">Исследователь океана</p>
-        <button class="profile__add-content"></button>
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто<button class="profile__btn-edit"></button></h1>
+          <p class="profile__description">Исследователь океана</p>
+        </div>
+        <button class="profile__btn-add-content"></button>
       </div>
     </main>
     <footer class="footer">
@@ -27,4 +31,5 @@
   </div>
   <script src="./sccripts/script.js"></script>
 </body>
+
 </html>
