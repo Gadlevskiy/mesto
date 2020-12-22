@@ -1,0 +1,26 @@
+.popup__btn-add-profile {
+  padding: 0;
+  border: 0;
+  background: #000000;
+  border-radius: 2px;
+  height: 46px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+  transition: opacity 0.3s linear;
+}
+
+.popup__btn-add-profile:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 1024px) {
+  .popup__btn-add-profile {
+    height: 50px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

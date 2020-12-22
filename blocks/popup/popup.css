@@ -1,11 +1,20 @@
 .popup {
   background-color: #ffffff;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
+  align-items: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
   padding: 25px 22px;
   max-width: 430px;
-  max-height: 330px;
+  min-height: 320px;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+  .popup {
+    padding: 34px 36px 37px;
+  }
 }
