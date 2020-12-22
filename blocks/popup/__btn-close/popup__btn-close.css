@@ -1,8 +1,8 @@
 .popup__btn-close {
   position: absolute;
   transform: translate(50%, -50%) rotate(45deg);
-  top: -20px;
-  right: 14px;
+  top: -32px;
+  right: 18px;
   background-image: url(../../../images/btn-Close_Icon.svg);
   width: 26px;
   height: 26px;
