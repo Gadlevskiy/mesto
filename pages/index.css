@@ -23,3 +23,7 @@
 /* SECTION FOOTER */
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__author/footer__author.css);
+/* SECTION OVERLAY/POPUP */
+@import url(../blocks/overlay/overlay.css);
+@import url(../blocks/popup/popup.css);
+
