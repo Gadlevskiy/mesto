@@ -9,7 +9,7 @@
 **Figma**
 
 * Сайт реализован на основе макета в Figma [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
-* [Сайт на GH-PAGES]()
+* [Сайт на GH-PAGES](https://gadlevskiy.github.io/mesto/)
 
 **JavaScript**
 
