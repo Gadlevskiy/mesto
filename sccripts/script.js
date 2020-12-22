@@ -11,10 +11,26 @@ function TogglePopup() {
 }
 
 let editButton = document.querySelector('.profile__btn-edit')
+let addProfileButton = overlay.querySelector('.popup__btn-add-profile')
 let closeButton = document.querySelector('.popup__btn-close')
+let profileName = document.querySelector('.profile__name')
+let profileDescription = document.querySelector('.profile__description')
+let inputName = overlay.querySelector('.popup__input-name')
+let inputDescription = overlay.querySelector('.popup__input-description')
 
 editButton.addEventListener('click', event => {
   event.preventDefault()
+  TogglePopup()
+  inputName.value = profileName.textContent
+  console.log(inputName.value)
+  inputDescription.value = profileDescription.textContent
+})
+
+addProfileButton.addEventListener('click', event => {
+  event.preventDefault()
+  profileName.textContent = inputName.value
+  console.log(profileName.innerHTML)
+  profileDescription.textContent = inputDescription.value
   TogglePopup()
 })
 
@@ -26,4 +42,4 @@ overlay.addEventListener('click', event => {
   }
 })
 
-let form = overlay.querySelector('.popup__form')
+

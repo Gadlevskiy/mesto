@@ -1,7 +1,7 @@
 .profile__btn-edit {
   position: absolute;
-  bottom: 5px;
-  right: -25px;
+  top: 35px;
+  right: -28px;
   width: 18px;
   height: 18px;
   background-color: #000000;
@@ -23,10 +23,10 @@
 
 @media screen and (min-width: 1024px) {
   .profile__btn-edit {
-    bottom: 7px;
-    right: -44px;
     width: 24px;
     height: 24px;
     background-size: 10px;
+    top: 15px;
+    right: -42px;
   }
 }
