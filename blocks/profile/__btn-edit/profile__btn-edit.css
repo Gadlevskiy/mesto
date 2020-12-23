@@ -1,7 +1,4 @@
 .profile__btn-edit {
-  position: absolute;
-  top: 35px;
-  right: -28px;
   width: 18px;
   height: 18px;
   background-color: #000000;
@@ -14,6 +11,7 @@
   background-repeat: no-repeat;
   background-size: 7.5px;
   transition: opacity 0.5s linear;
+  margin: 34px 0 0 12px;
 }
 
 .profile__btn-edit:hover {
@@ -28,5 +26,6 @@
     background-size: 10px;
     top: 15px;
     right: -48px;
+    margin: 14px 0 0 19px;
   }
 }
