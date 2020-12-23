@@ -42,6 +42,3 @@ overlay.addEventListener('click', event => {
   }
 })
 
-let formPopup = overlay.querySelector('.popup__form')
-formPopup.addEventListener('submit', handleFormSubmit)
-
