@@ -1,29 +1,44 @@
-let overlay = document.querySelector('.overlay')
-let editButton = document.querySelector('.profile__btn-edit')
-let popupForm = overlay.querySelector('.popup__form')
-let closeButton = document.querySelector('.popup__btn-close')
-let profileName = document.querySelector('.profile__name')
-let profileDescription = document.querySelector('.profile__description')
-let inputName = overlay.querySelector('.popup__input_type_name')
-let inputDescription = overlay.querySelector('.popup__input_type_description')
+const overlayEdit = document.querySelector('.overlay_type_edit')
+const overlayAdd = document.querySelector('.overlay_type_add')
+const editButton = document.querySelector('.profile__btn-edit')
+const addButton = document.querySelector('.profile__btn-add-content')
+const popupProfileForm = overlayEdit.querySelector('.popup__form')
+const closeProfileButton = overlayEdit.querySelector('.popup__btn-close')
+const popupContentForm = overlayAdd.querySelector('.popup__form')
+const closeContentButton = overlayAdd.querySelector('.popup__btn-close')
+const profileName = document.querySelector('.profile__name')
+const profileDescription = document.querySelector('.profile__description')
+const inputName = overlayEdit.querySelector('.popup__input_type_name')
+const inputDescription = overlayEdit.querySelector('.popup__input_type_description')
 
-function popupActive() {
-  overlay.classList.add('overlay_active')
+function popupProfileActive() {
+  overlayEdit.classList.add('overlay_active')
   inputName.value = profileName.textContent
   inputDescription.value = profileDescription.textContent
 }
 
-function popupDisable() {
-  overlay.classList.remove('overlay_active')
+function popupProfileDisable() {
+  overlayEdit.classList.remove('overlay_active')
 }
 
-function popupSubmit(evt) {
+function popupProfileSubmit(evt) {
   evt.preventDefault()
   profileName.textContent = inputName.value
   profileDescription.textContent = inputDescription.value
-  popupDisable()
+  popupProfileDisable()
 }
 
-editButton.addEventListener('click', popupActive)
-closeButton.addEventListener('click', popupDisable)
-popupForm.addEventListener('submit', popupSubmit)
+editButton.addEventListener('click', popupProfileActive)
+closeProfileButton.addEventListener('click', popupProfileDisable)
+popupProfileForm.addEventListener('submit', popupProfileSubmit)
+
+function popupContentActive() {
+  overlayAdd.classList.add('overlay_active')
+}
+
+function popupContentDisable() {
+  overlayAdd.classList.remove('overlay_active')
+}
+
+addButton.addEventListener('click', popupContentActive)
+closeContentButton.addEventListener('click', popupContentDisable)
