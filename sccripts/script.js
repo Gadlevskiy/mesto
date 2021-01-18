@@ -10,7 +10,34 @@ const profileName = document.querySelector('.profile__name')
 const profileDescription = document.querySelector('.profile__description')
 const inputName = overlayEdit.querySelector('.popup__input_type_name')
 const inputDescription = overlayEdit.querySelector('.popup__input_type_description')
-const
+const formTamplate = document.querySelector('.form-tamplate').content
+const cardsList = document.querySelector('.elements__list')
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+]
 
 function popupProfileActive() {
   overlayEdit.classList.add('overlay_active')
@@ -44,6 +71,12 @@ function popupContentDisable() {
 addButton.addEventListener('click', popupContentActive)
 closeContentButton.addEventListener('click', popupContentDisable)
 
-function insertTamplate() {
-
+function insertTamplate(name, link) {
+  const userTamplate = formTamplate.cloneNode(true)
+  userTamplate.querySelector('.elements__title').textContent = name
+  userTamplate.querySelector('.elements__image').src = link
+  cardsList.appendChild(userTamplate)
 }
+console.log(initialCards)
+
+initialCards.forEach(insertTamplate)
