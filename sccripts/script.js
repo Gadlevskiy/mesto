@@ -10,6 +10,7 @@ const profileName = document.querySelector('.profile__name')
 const profileDescription = document.querySelector('.profile__description')
 const inputName = overlayEdit.querySelector('.popup__input_type_name')
 const inputDescription = overlayEdit.querySelector('.popup__input_type_description')
+const
 
 function popupProfileActive() {
   overlayEdit.classList.add('overlay_active')
@@ -42,3 +43,7 @@ function popupContentDisable() {
 
 addButton.addEventListener('click', popupContentActive)
 closeContentButton.addEventListener('click', popupContentDisable)
+
+function insertTamplate() {
+
+}
