@@ -87,6 +87,7 @@ function insertTamplate(el) {
   const userTamplate = formTamplate.cloneNode(true)
   userTamplate.querySelector('.elements__title').textContent = el.name
   userTamplate.querySelector('.elements__image').src = el.link
+  userTamplate.querySelector('.elements__image').alt = el.name
   userTamplate.querySelector('.elements__image').addEventListener('click', ()=> {
     overlayPreview.classList.add('overlay_active')
     previewPicture.src = el.link
