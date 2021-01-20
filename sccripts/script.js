@@ -77,12 +77,19 @@ function insertTamplate(el) {
   userTamplate.querySelector('.elements__image').src = el.link
   cardsList.appendChild(userTamplate)
 }
-// const initialName = initialCards.map(function(el){
-//   return el.name
-// })
-
-// const initialLink = initialCards.map(function(el){
-//   return el.link
-// })
 
 initialCards.forEach(insertTamplate)
+
+const inputContentName = overlayAdd.querySelector('.popup__input_type_name')
+const inputContentLink = overlayAdd.querySelector('.popup__input_type_url-image')
+
+function popupContentSubmit(evt) {
+  evt.preventDefault()
+  const mergeContent = [{ name: '', link: ''}]
+  mergeContent.name = inputContentName.value
+  mergeContent.link = inputContentLink.value
+  insertTamplate(mergeContent)
+  popupContentDisable()
+}
+
+popupContentForm.addEventListener('submit', popupContentSubmit)
