@@ -38,6 +38,10 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ]
+const overlayPreview = document.querySelector('.overlay_type_preview')
+const previewButtonClose = overlayPreview.querySelector('.preview__btn-close')
+const previewDescription = overlayPreview.querySelector('.preview__description')
+const previewPicture = overlayPreview.querySelector('.preview__picture')
 
 function popupProfileActive() {
   overlayEdit.classList.add('overlay_active')
@@ -75,13 +79,24 @@ function popupContentDelete(evt) {
   evt.target.closest('.elements__element').remove()
 }
 
+function previewDisable() {
+  overlayPreview.classList.remove('overlay_active')
+}
+
 function insertTamplate(el) {
   const userTamplate = formTamplate.cloneNode(true)
   userTamplate.querySelector('.elements__title').textContent = el.name
   userTamplate.querySelector('.elements__image').src = el.link
+  userTamplate.querySelector('.elements__image').addEventListener('click', function previewActive() {
+    overlayPreview.classList.add('overlay_active')
+    previewPicture.src = el.link
+    previewDescription.textContent = el.name
+  })
   userTamplate.querySelector('.elements__delete-btn').addEventListener('click', popupContentDelete)
   cardsList.prepend(userTamplate)
 }
+
+previewButtonClose.addEventListener('click', previewDisable)
 
 initialCards.forEach(insertTamplate)
 
