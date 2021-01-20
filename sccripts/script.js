@@ -71,12 +71,18 @@ function popupContentDisable() {
 addButton.addEventListener('click', popupContentActive)
 closeContentButton.addEventListener('click', popupContentDisable)
 
-function insertTamplate(name, link) {
+function insertTamplate(el) {
   const userTamplate = formTamplate.cloneNode(true)
-  userTamplate.querySelector('.elements__title').textContent = name
-  userTamplate.querySelector('.elements__image').src = link
+  userTamplate.querySelector('.elements__title').textContent = el.name
+  userTamplate.querySelector('.elements__image').src = el.link
   cardsList.appendChild(userTamplate)
 }
-console.log(initialCards)
+// const initialName = initialCards.map(function(el){
+//   return el.name
+// })
+
+// const initialLink = initialCards.map(function(el){
+//   return el.link
+// })
 
 initialCards.forEach(insertTamplate)
