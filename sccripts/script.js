@@ -87,10 +87,14 @@ function insertTamplate(el) {
   const userTamplate = formTamplate.cloneNode(true)
   userTamplate.querySelector('.elements__title').textContent = el.name
   userTamplate.querySelector('.elements__image').src = el.link
-  userTamplate.querySelector('.elements__image').addEventListener('click', function previewActive() {
+  userTamplate.querySelector('.elements__image').addEventListener('click', ()=> {
     overlayPreview.classList.add('overlay_active')
     previewPicture.src = el.link
     previewDescription.textContent = el.name
+  })
+  const likeButton = userTamplate.querySelector('.elements__like-btn')
+  likeButton.addEventListener('click', ()=> {
+    likeButton.classList.toggle('elements__like-btn_type_active')
   })
   userTamplate.querySelector('.elements__delete-btn').addEventListener('click', popupContentDelete)
   cardsList.prepend(userTamplate)
