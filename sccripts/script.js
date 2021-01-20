@@ -71,7 +71,6 @@ function popupContentDisable() {
 addButton.addEventListener('click', popupContentActive)
 closeContentButton.addEventListener('click', popupContentDisable)
 
-
 function popupContentDelete(evt) {
   evt.target.closest('.elements__element').remove()
 }
@@ -81,7 +80,7 @@ function insertTamplate(el) {
   userTamplate.querySelector('.elements__title').textContent = el.name
   userTamplate.querySelector('.elements__image').src = el.link
   userTamplate.querySelector('.elements__delete-btn').addEventListener('click', popupContentDelete)
-  cardsList.appendChild(userTamplate)
+  cardsList.prepend(userTamplate)
 }
 
 initialCards.forEach(insertTamplate)
