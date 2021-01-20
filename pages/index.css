@@ -20,6 +20,7 @@
 @import url(../blocks/elements/__description/elements__description.css);
 @import url(../blocks/elements/__title/elements__title.css);
 @import url(../blocks/elements/__like-btn/elements__like-btn.css);
+@import url(../blocks/elements/__like-btn/_type/elements__like-btn_type_active.css);
 @import url(../blocks/elements/__delete-btn/elements__delete-btn.css);
 /* SECTION FOOTER */
 @import url(../blocks/footer/footer.css);
@@ -27,6 +28,7 @@
 /* SECTION OVERLAY/POPUP/PREVIEW */
 @import url(../blocks/overlay/overlay.css);
 @import url(../blocks/overlay/_active/overlay_active.css);
+@import url(../blocks/overlay/_opacity_deep/overlay_opacity_deep.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__btn-close/popup__btn-close.css);
