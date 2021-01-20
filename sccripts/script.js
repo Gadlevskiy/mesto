@@ -71,10 +71,16 @@ function popupContentDisable() {
 addButton.addEventListener('click', popupContentActive)
 closeContentButton.addEventListener('click', popupContentDisable)
 
+
+function popupContentDelete(evt) {
+  evt.target.closest('.elements__element').remove()
+}
+
 function insertTamplate(el) {
   const userTamplate = formTamplate.cloneNode(true)
   userTamplate.querySelector('.elements__title').textContent = el.name
   userTamplate.querySelector('.elements__image').src = el.link
+  userTamplate.querySelector('.elements__delete-btn').addEventListener('click', popupContentDelete)
   cardsList.appendChild(userTamplate)
 }
 
@@ -90,6 +96,8 @@ function popupContentSubmit(evt) {
   mergeContent.link = inputContentLink.value
   insertTamplate(mergeContent)
   popupContentDisable()
+  inputContentName.value = ''
+  inputContentLink.value = ''
 }
 
 popupContentForm.addEventListener('submit', popupContentSubmit)
