@@ -1,82 +1,140 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <meta name="description" content="Mesto" />
+    <meta name="author" content="Гадлевский Алексей" />
+    <title>Mesto</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
-  <meta name="description" content="Mesto">
-  <meta name="author" content="Гадлевский Алексей">
-  <title>Mesto</title>
-</head>
-
-<body>
-  <div class="page">
-    <header class="header">
-      <img class="header__logo" src="./images/header__logo.svg" alt="логотип страницы Место">
-    </header>
-    <main class="content">
-      <section class="profile">
-        <img class="profile__photo" src="./images/Avatar.jpg" alt="Фото профиля">
-        <div class="profile__info">
-          <div class="profile__text">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <p class="profile__description">Исследователь океана</p>
+  <body>
+    <div class="page">
+      <header class="header">
+        <img
+          class="header__logo"
+          src="./images/header__logo.svg"
+          alt="логотип страницы Место"
+        />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <img
+            class="profile__photo"
+            src="./images/Avatar.jpg"
+            alt="Фото профиля"
+          />
+          <div class="profile__info">
+            <div class="profile__text">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <p class="profile__description">Исследователь океана</p>
+            </div>
+            <button type="button" class="profile__btn-edit"></button>
           </div>
-          <button type="button" class="profile__btn-edit"></button>
+          <button type="button" class="profile__btn-add-content"></button>
+        </section>
+        <section class="elements">
+          <ul class="elements__list"></ul>
+        </section>
+      </main>
+      <footer class="footer">
+        <p class="footer__author">&copy; 2020. Алексей Гадлевский</p>
+      </footer>
+      <section class="overlay overlay_type_edit">
+        <div class="popup">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form class="popup__form" name="form-info">
+            <label class="popup__field">
+              <input
+                type="text"
+                class="popup__input popup__input_type_name"
+                name="name"
+                id="name-input"
+                required
+                minlength="2"
+                maxlength="40"
+              />
+              <span class="popup__input-error name-input-error"></span>
+            </label>
+            <label class="popup__field">
+              <input
+                type="text"
+                class="popup__input popup__input_type_description"
+                name="description"
+                id="description-input"
+                required
+                minlength="2"
+                maxlength="200"
+              />
+              <span class="popup__input-error description-input-error"></span>
+            </label>
+            <button type="submit" class="popup__btn-add-profile">
+              Сохранить
+            </button>
+          </form>
+          <button type="button" class="popup__btn-close"></button>
         </div>
-        <button type="button" class="profile__btn-add-content"></button>
       </section>
-      <section class="elements">
-        <ul class="elements__list">
-        </ul>
+      <section class="overlay overlay_type_add">
+        <div class="popup">
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__form" name="form-info">
+            <label class="popup__field">
+              <input
+                type="text"
+                class="popup__input popup__input_type_name"
+                name="name"
+                id="text-input"
+                placeholder="Название"
+                required
+                minlength="2"
+                maxlength="30"
+              />
+              <span class="popup__input-error text-input-error"></span>
+            </label>
+            <label class="popup__field">
+              <input
+                type="url"
+                class="popup__input popup__input_type_url-image"
+                name="url-image"
+                id="url-input"
+                placeholder="Ссылка на картинку"
+                required
+              />
+            </label>
+            <span class="popup__input-error url-input-error"></span>
+            <button type="submit" class="popup__btn-add-profile">
+              Создать
+            </button>
+          </form>
+          <button type="button" class="popup__btn-close"></button>
+        </div>
       </section>
-    </main>
-    <footer class="footer">
-      <p class="footer__author">&copy; 2020. Алексей Гадлевский</p>
-    </footer>
-    <section class="overlay overlay_type_edit">
-      <div class="popup">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="form-info">
-          <input type="text" class="popup__input popup__input_type_name" name="name">
-          <input type="text" class="popup__input popup__input_type_description" name="description">
-          <button type="submit" class="popup__btn-add-profile">Сохранить</button>
-        </form>
-        <button type="button" class="popup__btn-close"></button>
-      </div>
-    </section>
-    <section class="overlay overlay_type_add">
-      <div class="popup">
-        <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="form-info">
-          <input type="text" class="popup__input popup__input_type_name" name="name" placeholder="Название">
-          <input type="text" class="popup__input popup__input_type_url-image" name="url-image" placeholder="Ссылка на картинку">
-          <button type="submit" class="popup__btn-add-profile">Создать</button>
-        </form>
-        <button type="button" class="popup__btn-close"></button>
-      </div>
-    </section>
-    <section class="overlay overlay_type_preview overlay_opacity_deep">
-      <div class="preview">
-        <img class="preview__picture" alt="контейнер" src="./images/header__logo.svg">
-        <h2 class="preview__description"></h2>
-        <button type="button" class="preview__btn-close"></button>
-      </div>
-    </section>
-  </div>
-  <template class="form-template">
-    <li class="elements__element">
-      <button type="button" class="elements__delete-btn"></button>
-      <img class="elements__image">
-      <div class="elements__description">
-        <h2 class="elements__title"></h2>
-        <button type="button" class="elements__like-btn"></button>
-      </div>
-    </li>
-  </template>
-  <script src="./sccripts/initial-cards.js"></script>
-  <script src="./sccripts/index.js"></script>
-</body>
-
+      <section class="overlay overlay_type_preview overlay_opacity_deep">
+        <div class="preview">
+          <img
+            class="preview__picture"
+            alt="контейнер"
+            src="./images/header__logo.svg"
+          />
+          <h2 class="preview__description"></h2>
+          <button type="button" class="preview__btn-close"></button>
+        </div>
+      </section>
+    </div>
+    <template class="form-template">
+      <li class="elements__element">
+        <button type="button" class="elements__delete-btn"></button>
+        <img class="elements__image" />
+        <div class="elements__description">
+          <h2 class="elements__title"></h2>
+          <button type="button" class="elements__like-btn"></button>
+        </div>
+      </li>
+    </template>
+    <script src="./sccripts/initial-cards.js"></script>
+    <script src="./sccripts/index.js"></script>
+    <script src="sccripts/validate.js"></script>
+  </body>
 </html>
