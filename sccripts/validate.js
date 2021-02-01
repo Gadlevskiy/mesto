@@ -22,21 +22,21 @@ const checkInputValidity = (formElement, inputElement) => {
 
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll("popup__input"));
-  inputList.forEach((inputElement)=>{
-    inputElement.addEventListener('input', ()=>{
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", () => {
       checkInputValidity(formElement, inputElement);
-    })
-  })
+    });
+  });
 };
 
 const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('popup__form'));
-  formList.forEach((formElement)=>{
-    frameElement.addEventListener('submit', (evt)=>{
+  const formList = Array.from(document.querySelectorAll("popup__form"));
+  formList.forEach((formElement) => {
+    frameElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-    })
+    });
     setEventListeners(formElement);
-  })
-}
+  });
+};
 
-enableValidation()
+enableValidation();
