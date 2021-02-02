@@ -45,7 +45,6 @@
         <div class="popup">
           <h2 class="popup__title">Редактировать профиль</h2>
           <form class="popup__form" name="form-info">
-            <label class="popup__field">
               <input
                 type="text"
                 class="popup__input popup__input_type_name"
@@ -56,8 +55,6 @@
                 maxlength="40"
               />
               <span class="popup__input-error name-input-error"></span>
-            </label>
-            <label class="popup__field">
               <input
                 type="text"
                 class="popup__input popup__input_type_description"
@@ -68,8 +65,10 @@
                 maxlength="200"
               />
               <span class="popup__input-error description-input-error"></span>
-            </label>
-            <button type="submit" class="popup__btn-add-profile popup__btn-add-profile_disabled">
+            <button
+              type="submit"
+              class="popup__btn-add-profile"
+            >
               Сохранить
             </button>
           </form>
@@ -80,7 +79,6 @@
         <div class="popup">
           <h2 class="popup__title">Новое место</h2>
           <form class="popup__form" name="form-info">
-            <label class="popup__field">
               <input
                 type="text"
                 class="popup__input popup__input_type_name"
@@ -92,8 +90,6 @@
                 maxlength="30"
               />
               <span class="popup__input-error text-input-error"></span>
-            </label>
-            <label class="popup__field">
               <input
                 type="url"
                 class="popup__input popup__input_type_url-image"
@@ -102,8 +98,7 @@
                 placeholder="Ссылка на картинку"
                 required
               />
-            </label>
-            <span class="popup__input-error url-input-error"></span>
+              <span class="popup__input-error url-input-error"></span>
             <button type="submit" class="popup__btn-add-profile">
               Создать
             </button>
