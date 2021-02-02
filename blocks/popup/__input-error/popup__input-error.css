@@ -2,11 +2,19 @@
   position: relative;
   display: block;
   max-width: 238px;
-  min-height: 30px;
+  height: 25px;
+}
+
+.popup__input-error:last-of-type {
+  height: 40px;
 }
 
 @media screen and (min-width: 1024px) {
   .popup__input-error {
     max-width: 358px;
+  }
+
+  .popup__input-error:last-of-type {
+    height: 43px;
   }
 }
