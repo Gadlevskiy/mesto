@@ -28,12 +28,12 @@ const buttonAddProfile = overlayAdd.querySelector('.popup__btn-add-profile');
 
 function openPopup(popup) {
   popup.classList.add('overlay_active');
-  document.addEventListener('keydown', () => handleEscKey(event, popup));
+  document.addEventListener('keydown', handleEscKey);
 }
 
 function closePopup(popup) {
   popup.classList.remove('overlay_active');
-  document.removeEventListener('keydown', () => handleEscKey(event, popup));
+  document.removeEventListener('keydown', handleEscKey);
 }
 
 function activatePopupProfile() {
@@ -93,17 +93,19 @@ function submitContentToCard(evt) {
   renderCard(newCard, cardsList);
   closePopup(overlayAdd);
   popupContentForm.reset();
-  buttonAddProfile.setAttribute('disabled', true);
-  buttonAddProfile.classList.add('popup__btn-add-profile_disabled');
+  disableCreateButton(buttonAddProfile);
 }
 
 initialCards.forEach((data) => {
   renderCard(data, cardsList);
 });
 
-function handleEscKey(evt, popup) {
+function handleEscKey(evt) {
+  const allOverlays = document.querySelectorAll('.overlay');
   if (evt.key === 'Escape') {
-    closePopup(popup);
+    allOverlays.forEach((item) => {
+      item.classList.remove('overlay_active');
+    });
   }
 }
 

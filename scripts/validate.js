@@ -42,19 +42,27 @@ const enableValidation = () => {
   });
 };
 
-const hasInvalidInput = (inputList)=> {
-  return inputList.some((inputElement)=>{
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
-  })
+  });
+};
+
+const disableCreateButton = (buttonSubmit) => {
+  buttonSubmit.setAttribute('disabled', true);
+  buttonSubmit.classList.add('popup__btn-add-profile_disabled');
+};
+
+const activateCreateButton = (buttonSubmit) => {
+  buttonSubmit.removeAttribute('disabled');
+  buttonSubmit.classList.remove('popup__btn-add-profile_disabled');
 };
 
 const toggleButtonState = (inputList, buttonSubmit) => {
   if (hasInvalidInput(inputList)) {
-    buttonSubmit.setAttribute('disabled', true);
-    buttonSubmit.classList.add('popup__btn-add-profile_disabled');
+    disableCreateButton(buttonSubmit);
   } else {
-    buttonSubmit.removeAttribute('disabled')
-    buttonSubmit.classList.remove('popup__btn-add-profile_disabled');
+    activateCreateButton(buttonSubmit);
   }
 };
 
