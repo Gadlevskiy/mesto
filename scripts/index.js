@@ -24,13 +24,16 @@ const inputContentName = overlayAdd.querySelector('.popup__input_type_name');
 const inputContentLink = overlayAdd.querySelector(
   '.popup__input_type_url-image'
 );
+const buttonAddProfile = overlayAdd.querySelector('.popup__btn-add-profile');
 
 function openPopup(popup) {
   popup.classList.add('overlay_active');
+  document.addEventListener('keydown', () => handleEscKey(event, popup));
 }
 
 function closePopup(popup) {
   popup.classList.remove('overlay_active');
+  document.removeEventListener('keydown', () => handleEscKey(event, popup));
 }
 
 function activatePopupProfile() {
@@ -90,6 +93,8 @@ function submitContentToCard(evt) {
   renderCard(newCard, cardsList);
   closePopup(overlayAdd);
   popupContentForm.reset();
+  buttonAddProfile.setAttribute('disabled', true);
+  buttonAddProfile.classList.add('popup__btn-add-profile_disabled');
 }
 
 initialCards.forEach((data) => {
@@ -99,21 +104,18 @@ initialCards.forEach((data) => {
 function handleEscKey(evt, popup) {
   if (evt.key === 'Escape') {
     closePopup(popup);
-  };
-};
+  }
+}
 
 function handlePopupOuterSpace(event) {
   if (event.target === event.currentTarget) {
     closePopup(event.currentTarget);
-  };
-};
+  }
+}
 
 overlayAdd.addEventListener('click', handlePopupOuterSpace);
 overlayEdit.addEventListener('click', handlePopupOuterSpace);
 overlayPreview.addEventListener('click', handlePopupOuterSpace);
-document.addEventListener('keydown', () => handleEscKey(event, overlayAdd));
-document.addEventListener('keydown', () => handleEscKey(event, overlayEdit));
-document.addEventListener('keydown', () => handleEscKey(event, overlayPreview));
 editButton.addEventListener('click', activatePopupProfile);
 closeProfileButton.addEventListener('click', () => closePopup(overlayEdit));
 popupProfileForm.addEventListener('submit', submitPopupToProfile);

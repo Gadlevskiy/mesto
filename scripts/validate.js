@@ -46,12 +46,14 @@ const hasInvalidInput = (inputList)=> {
   return inputList.some((inputElement)=>{
     return !inputElement.validity.valid;
   })
-}
+};
 
 const toggleButtonState = (inputList, buttonSubmit) => {
   if (hasInvalidInput(inputList)) {
+    buttonSubmit.setAttribute('disabled', true);
     buttonSubmit.classList.add('popup__btn-add-profile_disabled');
   } else {
+    buttonSubmit.removeAttribute('disabled')
     buttonSubmit.classList.remove('popup__btn-add-profile_disabled');
   }
 };
