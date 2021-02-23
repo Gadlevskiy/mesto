@@ -1,3 +1,4 @@
+import { Card } from './Card.js';
 const overlayEdit = document.querySelector('.overlay_type_edit');
 const overlayAdd = document.querySelector('.overlay_type_add');
 const editButton = document.querySelector('.profile__btn-edit');
@@ -12,7 +13,7 @@ const inputName = overlayEdit.querySelector('.popup__input_type_name');
 const inputDescription = overlayEdit.querySelector(
   '.popup__input_type_description'
 );
-const formTemplate = document.querySelector('.form-template').content;
+// const formTemplate = document.querySelector('.form-template').content;
 const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
 const previewButtonClose = overlayPreview.querySelector('.preview__btn-close');
@@ -64,24 +65,26 @@ function handleLikeIcon(item) {
   item.classList.toggle('elements__like-btn_type_active');
 }
 
-function handleCreateCard(el) {
-  const userTemplate = formTemplate.cloneNode(true);
-  const userImage = userTemplate.querySelector('.elements__image');
-  const likeButton = userTemplate.querySelector('.elements__like-btn');
-  const userText = userTemplate.querySelector('.elements__title');
-  userText.textContent = el.name;
-  userImage.src = el.link;
-  userImage.alt = el.name;
-  userImage.addEventListener('click', () => handlePreviewPicture(el));
-  likeButton.addEventListener('click', () => handleLikeIcon(likeButton));
-  userTemplate
-    .querySelector('.elements__delete-btn')
-    .addEventListener('click', handleDeleteCard);
-  return userTemplate;
-}
+// function handleCreateCard(el) {
+//   const userTemplate = formTemplate.cloneNode(true);
+//   const userImage = userTemplate.querySelector('.elements__image');
+//   const likeButton = userTemplate.querySelector('.elements__like-btn');
+//   const userText = userTemplate.querySelector('.elements__title');
+//   userText.textContent = el.name;
+//   userImage.src = el.link;
+//   userImage.alt = el.name;
+//   userImage.addEventListener('click', () => handlePreviewPicture(el));
+//   likeButton.addEventListener('click', () => handleLikeIcon(likeButton));
+//   userTemplate
+//     .querySelector('.elements__delete-btn')
+//     .addEventListener('click', handleDeleteCard);
+//   return userTemplate;
+// }
 
 function renderCard(data, wrap) {
-  wrap.prepend(handleCreateCard(data));
+  const card = new Card(data, '.form-template', handleDeleteCard, handlePreviewPicture, handleLikeIcon);
+  const cardElement = card.render();
+  wrap.prepend(cardElement);
 }
 
 function submitContentToCard(evt) {
