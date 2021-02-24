@@ -1,11 +1,20 @@
 import { Card } from './Card.js';
+import { FormValidator } from './validate.js';
 const overlayEdit = document.querySelector('.overlay_type_edit');
 const overlayAdd = document.querySelector('.overlay_type_add');
 const editButton = document.querySelector('.profile__btn-edit');
 const addButton = document.querySelector('.profile__btn-add-content');
+const formDataForValidate = {
+  inputSelector: '.popup__input',
+  btnAddDisableModify: 'popup__btn-add-profile_disabled',
+  inputTypeErrModify: 'popup__input_type_error',
+  inputErrActiveModify: 'popup__input-error_active'
+};
 const popupProfileForm = overlayEdit.querySelector('.popup__form');
+const profileFormValidate = new FormValidator(formDataForValidate, popupProfileForm);
 const closeProfileButton = overlayEdit.querySelector('.popup__btn-close');
 const popupContentForm = overlayAdd.querySelector('.popup__form');
+const contentFormValidate = new FormValidator(formDataForValidate, popupContentForm);
 const closeContentButton = overlayAdd.querySelector('.popup__btn-close');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
@@ -96,7 +105,7 @@ function submitContentToCard(evt) {
   renderCard(newCard, cardsList);
   closePopup(overlayAdd);
   popupContentForm.reset();
-  disableCreateButton(buttonAddProfile);
+  contentFormValidate.disableCreateButton(buttonAddProfile);
 }
 
 initialCards.forEach((data) => {
@@ -117,6 +126,9 @@ function handlePopupOuterSpace(event) {
     closePopup(event.currentTarget);
   }
 }
+
+profileFormValidate.enableValidation();
+contentFormValidate.enableValidation();
 
 overlayAdd.addEventListener('click', handlePopupOuterSpace);
 overlayEdit.addEventListener('click', handlePopupOuterSpace);
