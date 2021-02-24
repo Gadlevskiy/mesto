@@ -22,7 +22,6 @@ const inputName = overlayEdit.querySelector('.popup__input_type_name');
 const inputDescription = overlayEdit.querySelector(
   '.popup__input_type_description'
 );
-// const formTemplate = document.querySelector('.form-template').content;
 const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
 const previewButtonClose = overlayPreview.querySelector('.preview__btn-close');
@@ -35,6 +34,7 @@ const inputContentLink = overlayAdd.querySelector(
   '.popup__input_type_url-image'
 );
 const buttonAddProfile = overlayAdd.querySelector('.popup__btn-add-profile');
+const buttonEditProfile = overlayEdit.querySelector('.popup__btn-add-profile');
 
 function openPopup(popup) {
   popup.classList.add('overlay_active');
@@ -50,6 +50,7 @@ function activatePopupProfile() {
   openPopup(overlayEdit);
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
+  profileFormValidate.activateCreateButton(buttonEditProfile);
 }
 
 function submitPopupToProfile(evt) {
@@ -73,22 +74,6 @@ function handlePreviewPicture(el) {
 function handleLikeIcon(item) {
   item.classList.toggle('elements__like-btn_type_active');
 }
-
-// function handleCreateCard(el) {
-//   const userTemplate = formTemplate.cloneNode(true);
-//   const userImage = userTemplate.querySelector('.elements__image');
-//   const likeButton = userTemplate.querySelector('.elements__like-btn');
-//   const userText = userTemplate.querySelector('.elements__title');
-//   userText.textContent = el.name;
-//   userImage.src = el.link;
-//   userImage.alt = el.name;
-//   userImage.addEventListener('click', () => handlePreviewPicture(el));
-//   likeButton.addEventListener('click', () => handleLikeIcon(likeButton));
-//   userTemplate
-//     .querySelector('.elements__delete-btn')
-//     .addEventListener('click', handleDeleteCard);
-//   return userTemplate;
-// }
 
 function renderCard(data, wrap) {
   const card = new Card(data, '.form-template', handleDeleteCard, handlePreviewPicture, handleLikeIcon);
@@ -127,9 +112,6 @@ function handlePopupOuterSpace(event) {
   }
 }
 
-profileFormValidate.enableValidation();
-contentFormValidate.enableValidation();
-
 overlayAdd.addEventListener('click', handlePopupOuterSpace);
 overlayEdit.addEventListener('click', handlePopupOuterSpace);
 overlayPreview.addEventListener('click', handlePopupOuterSpace);
@@ -140,3 +122,5 @@ addButton.addEventListener('click', () => openPopup(overlayAdd));
 closeContentButton.addEventListener('click', () => closePopup(overlayAdd));
 popupContentForm.addEventListener('submit', submitContentToCard);
 previewButtonClose.addEventListener('click', () => closePopup(overlayPreview));
+profileFormValidate.enableValidation();
+contentFormValidate.enableValidation();
