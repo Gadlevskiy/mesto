@@ -55,21 +55,21 @@ export class FormValidator {
     });
   }
 
-  disableCreateButton(buttonSubmit) {
+  _disableCreateButton(buttonSubmit) {
     buttonSubmit.setAttribute('disabled', true);
     buttonSubmit.classList.add(this._btnAddDisableModify);
   }
 
-  activateCreateButton(buttonSubmit) {
+  _activateCreateButton(buttonSubmit) {
     buttonSubmit.removeAttribute('disabled');
     buttonSubmit.classList.remove(this._btnAddDisableModify);
   }
 
   _toggleButtonState(inputList, buttonSubmit) {
     if (this._hasInvalidInput(inputList)) {
-      this.disableCreateButton(buttonSubmit);
+      this._disableCreateButton(buttonSubmit);
     } else {
-      this.activateCreateButton(buttonSubmit);
+      this._activateCreateButton(buttonSubmit);
     }
   }
 }

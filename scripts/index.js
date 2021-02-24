@@ -73,11 +73,21 @@ function closePopup(popup) {
   document.removeEventListener('keydown', handleEscKey);
 }
 
+function disableCreateButton(buttonSubmit) {
+  buttonSubmit.setAttribute('disabled', true);
+  buttonSubmit.classList.add('popup__btn-add-profile_disabled');
+}
+
+function activateCreateButton(buttonSubmit) {
+  buttonSubmit.removeAttribute('disabled');
+  buttonSubmit.classList.remove('popup__btn-add-profile_disabled');
+}
+
 function activatePopupProfile() {
   openPopup(overlayEdit);
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
-  profileFormValidate.activateCreateButton(buttonEditProfile);
+  activateCreateButton(buttonEditProfile);
 }
 
 function submitPopupToProfile(evt) {
@@ -117,7 +127,7 @@ function submitContentToCard(evt) {
   renderCard(newCard, cardsList);
   closePopup(overlayAdd);
   popupContentForm.reset();
-  contentFormValidate.disableCreateButton(buttonAddProfile);
+  disableCreateButton(buttonAddProfile);
 }
 
 initialCards.forEach((data) => {
