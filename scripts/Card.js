@@ -24,21 +24,20 @@ export class Card {
   render() {
     this._view = this._getTemplate();
     this._setEventListeners();
-    this._view.querySelector(".elements__image").src = this._link;
-    this._view.querySelector(".elements__image").alt = this._name;
-    this._view.querySelector(".elements__title").textContent = this._name;
+    this._view.querySelector('.elements__image').src = this._link;
+    this._view.querySelector('.elements__image').alt = this._name;
+    this._view.querySelector('.elements__title').textContent = this._name;
     return this._view;
   }
 
   _setEventListeners() {
     this._view
-      .querySelector(".elements__image")
-      .addEventListener("click", () => this._previewPicture(this._data));
-    const likeBtn = this._view.querySelector(".elements__like-btn");
-      likeBtn
-      .addEventListener("click", () => this._likeIcon(likeBtn));
+      .querySelector('.elements__image')
+      .addEventListener('click', () => this._previewPicture(this._data));
+    const likeBtn = this._view.querySelector('.elements__like-btn');
+    likeBtn.addEventListener('click', () => this._likeIcon(likeBtn));
     this._view
-      .querySelector(".elements__delete-btn")
-      .addEventListener("click", this._deleteCard);
+      .querySelector('.elements__delete-btn')
+      .addEventListener('click', this._deleteCard);
   }
 }
