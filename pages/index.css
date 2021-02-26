@@ -40,6 +40,5 @@
 @import url(../blocks/popup/__btn-add-profile/popup__btn-add-profile.css);
 @import url(../blocks/popup/__btn-add-profile/_disabled/popup__btn-add-profile_disabled.css);
 @import url(../blocks/preview/preview.css);
-@import url(../blocks/preview/__btn-close/preview__btn-close.css);
 @import url(../blocks/preview/__description/preview__description.css);
 @import url(../blocks/preview/__picture/preview__picture.css);

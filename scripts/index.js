@@ -1,5 +1,5 @@
 import { Card } from './Card.js';
-import { FormValidator } from './validate.js';
+import { FormValidator } from './FormValidator.js';
 const initialCards = [
   {
     name: 'Архыз',
@@ -35,7 +35,8 @@ const formDataForValidate = {
   inputSelector: '.popup__input',
   btnAddDisableModify: 'popup__btn-add-profile_disabled',
   inputTypeErrModify: 'popup__input_type_error',
-  inputErrActiveModify: 'popup__input-error_active'
+  inputErrActiveModify: 'popup__input-error_active',
+  buttonSubmit: 'button[type="submit"]'
 };
 const popupProfileForm = overlayEdit.querySelector('.popup__form');
 const profileFormValidate = new FormValidator(formDataForValidate, popupProfileForm);
@@ -60,8 +61,6 @@ const inputContentName = overlayAdd.querySelector('.popup__input_type_name');
 const inputContentLink = overlayAdd.querySelector(
   '.popup__input_type_url-image'
 );
-const buttonAddProfile = overlayAdd.querySelector('.popup__btn-add-profile');
-const buttonEditProfile = overlayEdit.querySelector('.popup__btn-add-profile');
 
 function openPopup(popup) {
   popup.classList.add('overlay_active');
@@ -73,21 +72,10 @@ function closePopup(popup) {
   document.removeEventListener('keydown', handleEscKey);
 }
 
-function disableCreateButton(buttonSubmit) {
-  buttonSubmit.setAttribute('disabled', true);
-  buttonSubmit.classList.add('popup__btn-add-profile_disabled');
-}
-
-function activateCreateButton(buttonSubmit) {
-  buttonSubmit.removeAttribute('disabled');
-  buttonSubmit.classList.remove('popup__btn-add-profile_disabled');
-}
-
 function activatePopupProfile() {
   openPopup(overlayEdit);
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
-  activateCreateButton(buttonEditProfile);
 }
 
 function submitPopupToProfile(evt) {
@@ -127,7 +115,6 @@ function submitContentToCard(evt) {
   renderCard(newCard, cardsList);
   closePopup(overlayAdd);
   popupContentForm.reset();
-  disableCreateButton(buttonAddProfile);
 }
 
 initialCards.forEach((data) => {
@@ -152,10 +139,16 @@ function handlePopupOuterSpace(event) {
 overlayAdd.addEventListener('click', handlePopupOuterSpace);
 overlayEdit.addEventListener('click', handlePopupOuterSpace);
 overlayPreview.addEventListener('click', handlePopupOuterSpace);
-editButton.addEventListener('click', activatePopupProfile);
+editButton.addEventListener('click', () => {
+  activatePopupProfile();
+  profileFormValidate.resetValidation();
+});
 closeProfileButton.addEventListener('click', () => closePopup(overlayEdit));
 popupProfileForm.addEventListener('submit', submitPopupToProfile);
-addButton.addEventListener('click', () => openPopup(overlayAdd));
+addButton.addEventListener('click', () => {
+  openPopup(overlayAdd);
+  contentFormValidate.resetValidation();
+});
 closeContentButton.addEventListener('click', () => closePopup(overlayAdd));
 popupContentForm.addEventListener('submit', submitContentToCard);
 previewButtonClose.addEventListener('click', () => closePopup(overlayPreview));

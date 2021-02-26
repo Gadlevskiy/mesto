@@ -1,75 +1,81 @@
 export class FormValidator {
   constructor(data, formSelector) {
+    this._form = formSelector;
     this._inputSelector = data.inputSelector;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._btnAddDisableModify = data.btnAddDisableModify;
     this._inputTypeErrModify = data.inputTypeErrModify;
     this._inputErrActiveModify = data.inputErrActiveModify;
-    this._formSelector = formSelector;
+    this._submitButton = this._form.querySelector(data.buttonSubmit);
   }
 
   enableValidation() {
-    const currentForm = this._formSelector;
-    currentForm.addEventListener('submit', (evt) => {
+    this._form.addEventListener('submit', (evt) => {
         evt.preventDefault();
     });
-    this._setEventListeners(currentForm);
+    this._setEventListeners();
   }
 
-  _showInputError(formElement, inputElement, errorMessage) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  resetValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+    this._toggleButtonState();
+  }
+
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputTypeErrModify);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._inputErrActiveModify);
   }
 
-  _hideInputError(formElement, inputElement) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputTypeErrModify);
     errorElement.classList.remove(this._inputErrActiveModify);
     errorElement.textContent = '';
   }
 
-  _checkInputValidity(formElement, inputElement) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(formElement, inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(formElement, inputElement);
+      this._hideInputError(inputElement);
     }
   }
 
-  _setEventListeners(formElement) {
-    const inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
-    const buttonSubmit = formElement.querySelector('button[type="submit"]');
-    this._toggleButtonState(inputList, buttonSubmit);
-    inputList.forEach((inputElement) => {
+  _setEventListeners() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._checkInputValidity(formElement, inputElement);
-        this._toggleButtonState(inputList, buttonSubmit);
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState();
       });
     });
   }
 
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
-  _disableCreateButton(buttonSubmit) {
-    buttonSubmit.setAttribute('disabled', true);
-    buttonSubmit.classList.add(this._btnAddDisableModify);
+  _disableCreateButton() {
+    this._submitButton.setAttribute('disabled', true);
+    this._submitButton.classList.add(this._btnAddDisableModify);
   }
 
-  _activateCreateButton(buttonSubmit) {
-    buttonSubmit.removeAttribute('disabled');
-    buttonSubmit.classList.remove(this._btnAddDisableModify);
+  _activateCreateButton() {
+    this._submitButton.removeAttribute('disabled');
+    this._submitButton.classList.remove(this._btnAddDisableModify);
   }
 
-  _toggleButtonState(inputList, buttonSubmit) {
-    if (this._hasInvalidInput(inputList)) {
-      this._disableCreateButton(buttonSubmit);
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this._disableCreateButton();
     } else {
-      this._activateCreateButton(buttonSubmit);
+      this._activateCreateButton();
     }
   }
 }
