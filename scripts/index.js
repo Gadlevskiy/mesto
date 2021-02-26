@@ -122,11 +122,9 @@ initialCards.forEach((data) => {
 });
 
 function handleEscKey(evt) {
-  const allOverlays = document.querySelectorAll('.overlay');
   if (evt.key === 'Escape') {
-    allOverlays.forEach((item) => {
-      item.classList.remove('overlay_active');
-    });
+    const openedPopup = document.querySelector('.overlay_active');
+    closePopup(openedPopup);
   }
 }
 
