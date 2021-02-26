@@ -30,6 +30,9 @@
 @import url(../blocks/overlay/_active/overlay_active.css);
 @import url(../blocks/overlay/_opacity_deep/overlay_opacity_deep.css);
 @import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_type_form/popup_type_form.css);
+@import url(../blocks/popup/__description/popup__description.css);
+@import url(../blocks/popup/__preview-picture/popup__preview-picture.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__btn-close/popup__btn-close.css);
 @import url(../blocks/popup/__form/popup__form.css);
@@ -39,6 +42,3 @@
 @import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(../blocks/popup/__btn-add-profile/popup__btn-add-profile.css);
 @import url(../blocks/popup/__btn-add-profile/_disabled/popup__btn-add-profile_disabled.css);
-@import url(../blocks/preview/preview.css);
-@import url(../blocks/preview/__description/preview__description.css);
-@import url(../blocks/preview/__picture/preview__picture.css);

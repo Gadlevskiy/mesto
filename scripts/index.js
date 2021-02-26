@@ -32,7 +32,7 @@ const initialCards = [
       'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ];
-
+const overlays = document.querySelectorAll('.overlay');
 const overlayEdit = document.querySelector('.overlay_type_edit');
 const overlayAdd = document.querySelector('.overlay_type_add');
 const editButton = document.querySelector('.profile__btn-edit');
@@ -49,13 +49,11 @@ const profileFormValidate = new FormValidator(
   formDataForValidate,
   popupProfileForm
 );
-// const closeProfileButton = overlayEdit.querySelector('.popup__btn-close');
 const popupContentForm = overlayAdd.querySelector('.popup__form');
 const contentFormValidate = new FormValidator(
   formDataForValidate,
   popupContentForm
 );
-// const closeContentButton = overlayAdd.querySelector('.popup__btn-close');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const inputName = overlayEdit.querySelector('.popup__input_type_name');
@@ -64,11 +62,10 @@ const inputDescription = overlayEdit.querySelector(
 );
 const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
-// const previewButtonClose = overlayPreview.querySelector('.preview__btn-close');
 const previewDescription = overlayPreview.querySelector(
-  '.preview__description'
+  '.popup__description'
 );
-const previewPicture = overlayPreview.querySelector('.preview__picture');
+const previewPicture = overlayPreview.querySelector('.popup__preview-picture');
 const inputContentName = overlayAdd.querySelector('.popup__input_type_name');
 const inputContentLink = overlayAdd.querySelector(
   '.popup__input_type_url-image'
@@ -142,17 +139,10 @@ function handleEscKey(evt) {
   }
 }
 
-// function handlePopupOuterSpace(event) {
-//   if (event.target === event.currentTarget) {
-//     closePopup(event.currentTarget);
-//   }
-// }
-
 initialCards.forEach((data) => {
   renderCard(data, cardsList);
 });
 
-const overlays = document.querySelectorAll('.overlay');
 overlays.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('overlay_active')) {
@@ -163,21 +153,15 @@ overlays.forEach((popup) => {
   });
 });
 
-// overlayAdd.addEventListener('click', handlePopupOuterSpace);
-// overlayEdit.addEventListener('click', handlePopupOuterSpace);
-// overlayPreview.addEventListener('click', handlePopupOuterSpace);
 editButton.addEventListener('click', () => {
   activatePopupProfile();
   profileFormValidate.resetValidation();
 });
-// closeProfileButton.addEventListener('click', () => closePopup(overlayEdit));
 popupProfileForm.addEventListener('submit', submitPopupToProfile);
 addButton.addEventListener('click', () => {
   openPopup(overlayAdd);
   contentFormValidate.resetValidation();
 });
-// closeContentButton.addEventListener('click', () => closePopup(overlayAdd));
 popupContentForm.addEventListener('submit', submitContentToCard);
-// previewButtonClose.addEventListener('click', () => closePopup(overlayPreview));
 profileFormValidate.enableValidation();
 contentFormValidate.enableValidation();
