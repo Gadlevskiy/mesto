@@ -3,29 +3,35 @@ import { FormValidator } from './FormValidator.js';
 const initialCards = [
   {
     name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
   },
   {
     name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
   },
   {
     name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
   },
   {
     name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
   },
   {
     name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
   },
   {
     name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
+];
 
 const overlayEdit = document.querySelector('.overlay_type_edit');
 const overlayAdd = document.querySelector('.overlay_type_add');
@@ -36,14 +42,20 @@ const formDataForValidate = {
   btnAddDisableModify: 'popup__btn-add-profile_disabled',
   inputTypeErrModify: 'popup__input_type_error',
   inputErrActiveModify: 'popup__input-error_active',
-  buttonSubmit: 'button[type="submit"]'
+  buttonSubmit: 'button[type="submit"]',
 };
 const popupProfileForm = overlayEdit.querySelector('.popup__form');
-const profileFormValidate = new FormValidator(formDataForValidate, popupProfileForm);
-const closeProfileButton = overlayEdit.querySelector('.popup__btn-close');
+const profileFormValidate = new FormValidator(
+  formDataForValidate,
+  popupProfileForm
+);
+// const closeProfileButton = overlayEdit.querySelector('.popup__btn-close');
 const popupContentForm = overlayAdd.querySelector('.popup__form');
-const contentFormValidate = new FormValidator(formDataForValidate, popupContentForm);
-const closeContentButton = overlayAdd.querySelector('.popup__btn-close');
+const contentFormValidate = new FormValidator(
+  formDataForValidate,
+  popupContentForm
+);
+// const closeContentButton = overlayAdd.querySelector('.popup__btn-close');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const inputName = overlayEdit.querySelector('.popup__input_type_name');
@@ -52,7 +64,7 @@ const inputDescription = overlayEdit.querySelector(
 );
 const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
-const previewButtonClose = overlayPreview.querySelector('.preview__btn-close');
+// const previewButtonClose = overlayPreview.querySelector('.preview__btn-close');
 const previewDescription = overlayPreview.querySelector(
   '.preview__description'
 );
@@ -101,7 +113,13 @@ function handleLikeIcon(item) {
 }
 
 function renderCard(data, wrap) {
-  const card = new Card(data, '.form-template', handleDeleteCard, handlePreviewPicture, handleLikeIcon);
+  const card = new Card(
+    data,
+    '.form-template',
+    handleDeleteCard,
+    handlePreviewPicture,
+    handleLikeIcon
+  );
   const cardElement = card.render();
   wrap.prepend(cardElement);
 }
@@ -117,10 +135,6 @@ function submitContentToCard(evt) {
   popupContentForm.reset();
 }
 
-initialCards.forEach((data) => {
-  renderCard(data, cardsList);
-});
-
 function handleEscKey(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.overlay_active');
@@ -128,27 +142,42 @@ function handleEscKey(evt) {
   }
 }
 
-function handlePopupOuterSpace(event) {
-  if (event.target === event.currentTarget) {
-    closePopup(event.currentTarget);
-  }
-}
+// function handlePopupOuterSpace(event) {
+//   if (event.target === event.currentTarget) {
+//     closePopup(event.currentTarget);
+//   }
+// }
 
-overlayAdd.addEventListener('click', handlePopupOuterSpace);
-overlayEdit.addEventListener('click', handlePopupOuterSpace);
-overlayPreview.addEventListener('click', handlePopupOuterSpace);
+initialCards.forEach((data) => {
+  renderCard(data, cardsList);
+});
+
+const overlays = document.querySelectorAll('.overlay');
+overlays.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('overlay_active')) {
+      closePopup(popup);
+    } else if (evt.target.classList.contains('popup__btn-close')) {
+      closePopup(popup);
+    }
+  });
+});
+
+// overlayAdd.addEventListener('click', handlePopupOuterSpace);
+// overlayEdit.addEventListener('click', handlePopupOuterSpace);
+// overlayPreview.addEventListener('click', handlePopupOuterSpace);
 editButton.addEventListener('click', () => {
   activatePopupProfile();
   profileFormValidate.resetValidation();
 });
-closeProfileButton.addEventListener('click', () => closePopup(overlayEdit));
+// closeProfileButton.addEventListener('click', () => closePopup(overlayEdit));
 popupProfileForm.addEventListener('submit', submitPopupToProfile);
 addButton.addEventListener('click', () => {
   openPopup(overlayAdd);
   contentFormValidate.resetValidation();
 });
-closeContentButton.addEventListener('click', () => closePopup(overlayAdd));
+// closeContentButton.addEventListener('click', () => closePopup(overlayAdd));
 popupContentForm.addEventListener('submit', submitContentToCard);
-previewButtonClose.addEventListener('click', () => closePopup(overlayPreview));
+// previewButtonClose.addEventListener('click', () => closePopup(overlayPreview));
 profileFormValidate.enableValidation();
 contentFormValidate.enableValidation();
