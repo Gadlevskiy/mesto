@@ -159,6 +159,7 @@ editButton.addEventListener('click', () => {
 });
 popupProfileForm.addEventListener('submit', submitPopupToProfile);
 addButton.addEventListener('click', () => {
+  popupContentForm.reset();
   openPopup(overlayAdd);
   contentFormValidate.resetValidation();
 });
