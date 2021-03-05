@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <meta name="description" content="Mesto" />
     <meta name="author" content="Гадлевский Алексей" />
     <title>Mesto</title>
@@ -14,7 +13,7 @@
       <header class="header">
         <img
           class="header__logo"
-          src="./images/header__logo.svg"
+          src="<%=require('./images/header__logo.svg')%>"
           alt="логотип страницы Место"
         />
       </header>
@@ -22,7 +21,7 @@
         <section class="profile">
           <img
             class="profile__photo"
-            src="./images/Avatar.jpg"
+            src="<%=require('./images/Avatar.jpg')%>"
             alt="Фото профиля"
           />
           <div class="profile__info">
@@ -110,7 +109,7 @@
           <img
             class="popup__preview-picture"
             alt="контейнер"
-            src="./images/header__logo.svg"
+            src="<%=require('./images/header__logo.svg')%>"
           />
           <h2 class="popup__description"></h2>
           <button type="button" class="popup__btn-close"></button>
@@ -122,7 +121,7 @@
         <button type="button" class="elements__delete-btn"></button>
         <img
           class="elements__image"
-          src="./images/header__logo.svg"
+          src="<%=require('./images/header__logo.svg')%>"
           alt="Тэмплэйт"
         />
         <div class="elements__description">
@@ -131,8 +130,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./scripts/index.js"></script>
-    <script type="module" src="./scripts/FormValidator.js"></script>
-    <script type="module" src="./scripts/Card.js"></script>
   </body>
 </html>

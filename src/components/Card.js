@@ -1,9 +1,4 @@
 export class Card {
-  _link;
-  _name;
-  _userTemplate;
-  _view;
-
   constructor(data, userTemplate, deleteCard, previewPicture, likeIcon) {
     this._data = data;
     this._name = data.name;
