@@ -1,6 +1,9 @@
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
 import '../pages/index.css';
+import { from } from 'webpack-sources/lib/CompatSource';
 
 const initialCards = [
   {
