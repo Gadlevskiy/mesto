@@ -64,9 +64,7 @@ const inputDescription = overlayEdit.querySelector(
 );
 const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
-const previewDescription = overlayPreview.querySelector(
-  '.popup__description'
-);
+const previewDescription = overlayPreview.querySelector('.popup__description');
 const previewPicture = overlayPreview.querySelector('.popup__preview-picture');
 const inputContentName = overlayAdd.querySelector('.popup__input_type_name');
 const inputContentLink = overlayAdd.querySelector(
