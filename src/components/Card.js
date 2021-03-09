@@ -1,10 +1,14 @@
 export class Card {
-  constructor(data, userTemplate, deleteCard, previewPicture, likeIcon) {
+  constructor(
+    data,
+    userTemplate,
+    previewPicture,
+    likeIcon
+  ) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._userTemplate = userTemplate;
-    this._deleteCard = deleteCard;
     this._previewPicture = previewPicture;
     this._likeIcon = likeIcon;
   }
@@ -25,6 +29,10 @@ export class Card {
     return this._view;
   }
 
+  _handleDeleteCard(evt) {
+    evt.target.closest('.elements__element').remove();
+  }
+
   _setEventListeners() {
     this._view
       .querySelector('.elements__image')
@@ -33,6 +41,7 @@ export class Card {
     likeBtn.addEventListener('click', () => this._likeIcon(likeBtn));
     this._view
       .querySelector('.elements__delete-btn')
-      .addEventListener('click', this._deleteCard);
+      .addEventListener('click', this._handleDeleteCard);
+    this._view.addEventListener('click', this._handleCardClick);
   }
 }
