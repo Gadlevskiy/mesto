@@ -1,6 +1,6 @@
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
-// import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 // import { PopupWithForm } from '../components/PopupWithForm.js';
 import { Section } from '../components/Section.js';
 // import { UserInfo } from '../components/UserInfo.js';
@@ -82,8 +82,16 @@ const section = new Section(
       const card = new Card(
         data,
         '.form-template',
-        handlePreviewPicture,
-        handleLikeIcon
+        () => {
+          const popupWithImage = new PopupWithImage(
+            data,
+            overlayPreview,
+            previewPicture,
+            previewDescription
+          );
+        popupWithImage.setEventListeners();
+        popupWithImage.open();
+        }
       );
       const sectionElement = card.render();
       cardsList.prepend(sectionElement);
@@ -114,19 +122,11 @@ const section = new Section(
 //   closePopup(overlayEdit);
 // }
 
-function handleDeleteCard(evt) {
-  evt.target.closest('.elements__element').remove();
-}
-
 function handlePreviewPicture(el) {
   openPopup(overlayPreview);
   previewPicture.src = el.link;
   previewPicture.alt = el.name;
   previewDescription.textContent = el.name;
-}
-
-function handleLikeIcon(item) {
-  item.classList.toggle('elements__like-btn_type_active');
 }
 
 // function renderCard(data, wrap) {

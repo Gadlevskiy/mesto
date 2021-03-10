@@ -2,15 +2,13 @@ export class Card {
   constructor(
     data,
     userTemplate,
-    previewPicture,
-    likeIcon
+    previewPicture
   ) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._userTemplate = userTemplate;
     this._previewPicture = previewPicture;
-    this._likeIcon = likeIcon;
   }
 
   _getTemplate() {
@@ -33,12 +31,16 @@ export class Card {
     evt.target.closest('.elements__element').remove();
   }
 
+  _handleLikeIcon(btn) {
+    btn.classList.toggle('elements__like-btn_type_active');
+  }
+
   _setEventListeners() {
     this._view
       .querySelector('.elements__image')
       .addEventListener('click', () => this._previewPicture(this._data));
     const likeBtn = this._view.querySelector('.elements__like-btn');
-    likeBtn.addEventListener('click', () => this._likeIcon(likeBtn));
+    likeBtn.addEventListener('click', () => this._handleLikeIcon(likeBtn));
     this._view
       .querySelector('.elements__delete-btn')
       .addEventListener('click', this._handleDeleteCard);
