@@ -3,7 +3,7 @@ import { FormValidator } from '../components/FormValidator.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { Section } from '../components/Section.js';
-// import { UserInfo } from '../components/UserInfo.js';
+import { UserInfo } from '../components/UserInfo.js';
 import '../pages/index.css';
 import { from } from 'webpack-sources/lib/CompatSource';
 
@@ -61,6 +61,10 @@ const contentFormValidate = new FormValidator(
   formDataForValidate,
   popupContentForm
 );
+const userProfile = {
+  name: document.querySelector('.profile__name'),
+  description: document.querySelector('.profile__description'),
+};
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const inputName = overlayEdit.querySelector('.popup__input_type_name');
@@ -118,78 +122,37 @@ const popupWithContent = new PopupWithForm(
     });
     const sectionElement = newCard.render();
     cardsList.prepend(sectionElement);
-    console.log(data);
+  }
+);
+const userInfo = new UserInfo(userProfile);
+const popupWithUserInfo = new PopupWithForm(
+  overlayEdit,
+  () => {
+    const currentInputs = {
+      name: inputName.value,
+      description: inputDescription.value,
+    };
+    return currentInputs;
+  },
+  (evt, data) => {
+    evt.preventDefault();
+    userInfo.setUserInfo(data);
   }
 );
 
-// function openPopup(popup) {
-//   popup.classList.add('overlay_active');
-//   document.addEventListener('keydown', handleEscKey);
-// }
-
-// function closePopup(popup) {
-//   popup.classList.remove('overlay_active');
-//   document.removeEventListener('keydown', handleEscKey);
-// }
-
-// function activatePopupProfile() {
-//   openPopup(overlayEdit);
-//   inputName.value = profileName.textContent;
-//   inputDescription.value = profileDescription.textContent;
-// }
-
-// function submitPopupToProfile(evt) {
-//   evt.preventDefault();
-//   profileName.textContent = inputName.value;
-//   profileDescription.textContent = inputDescription.value;
-//   closePopup(overlayEdit);
-// }
-
-// function renderCard(data, wrap) {
-//   const card = new Card(
-//     data,
-//     '.form-template',
-//     handleDeleteCard,
-//     handlePreviewPicture,
-//     handleLikeIcon
-//   );
-//   const cardElement = card.render();
-//   wrap.prepend(cardElement);
-// }
-
-// function handleEscKey(evt) {
-//   if (evt.key === 'Escape') {
-//     const openedPopup = document.querySelector('.overlay_active');
-//     closePopup(openedPopup);
-//   }
-// }
-
-// initialCards.forEach((data) => {
-//   renderCard(data, cardsList);
-// });
-
-// overlays.forEach((popup) => {
-//   popup.addEventListener('click', (evt) => {
-//     if (evt.target.classList.contains('overlay_active')) {
-//       closePopup(popup);
-//     } else if (evt.target.classList.contains('popup__btn-close')) {
-//       closePopup(popup);
-//     }
-//   });
-// });
-
-// editButton.addEventListener('click', () => {
-//   activatePopupProfile();
-//   profileFormValidate.resetValidation();
-// });
-// popupProfileForm.addEventListener('submit', submitPopupToProfile);
+editButton.addEventListener('click', () => {
+  popupProfileForm.reset();
+  userInfo.getUserInfo(inputName, inputDescription);
+  popupWithUserInfo.open();
+  popupWithUserInfo.setEventListeners();
+  profileFormValidate.resetValidation();
+});
 addButton.addEventListener('click', () => {
   popupContentForm.reset();
   popupWithContent.open();
   popupWithContent.setEventListeners();
   contentFormValidate.resetValidation();
 });
-// popupContentForm.addEventListener('submit', submitContentToCard);
 
 section.renderAll();
 profileFormValidate.enableValidation();

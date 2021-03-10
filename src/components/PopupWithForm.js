@@ -8,10 +8,6 @@ export class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    // return this._values = {
-    //   name: this._form.querySelector('.popup__input_type_name').value,
-    //   link: this._form.querySelector('.popup__input_type_url-image').value
-    // }
   }
 
   close() {
@@ -21,6 +17,9 @@ export class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', (evt) => this._formSubmit(evt, this._values()));
+    this._form.addEventListener('submit', (evt) => {
+      this._formSubmit(evt, this._values());
+      this.close();
+    });
   }
 }

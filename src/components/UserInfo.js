@@ -4,15 +4,14 @@ export class UserInfo {
     this._description = description;
   }
 
-  getUserInfo() {
-    const userInfo = {
-      name: this._name.textContent,
-      description: this._description.textContent,
-    };
-    return userInfo;
+  getUserInfo(inputNameSelector, inputDescriptionSelector) {
+    inputNameSelector.value = this._name.textContent;
+    inputDescriptionSelector.value = this._description.textContent;
   }
 
-  setUserInfo() {
-
+  setUserInfo(data) {
+    console.log(data);
+    this._name.textContent = data.name;
+    this._description.textContent = data.description;
   }
 }
