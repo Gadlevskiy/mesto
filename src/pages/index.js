@@ -1,7 +1,7 @@
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
-// import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
 import { Section } from '../components/Section.js';
 // import { UserInfo } from '../components/UserInfo.js';
 import '../pages/index.css';
@@ -79,24 +79,47 @@ const section = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const card = new Card(
-        data,
-        '.form-template',
-        () => {
-          const popupWithImage = new PopupWithImage(
-            data,
-            overlayPreview,
-            previewPicture,
-            previewDescription
-          );
+      const card = new Card(data, '.form-template', () => {
+        const popupWithImage = new PopupWithImage(
+          data,
+          overlayPreview,
+          previewPicture,
+          previewDescription
+        );
         popupWithImage.setEventListeners();
         popupWithImage.open();
-        }
-      );
+      });
       const sectionElement = card.render();
       cardsList.prepend(sectionElement);
-    }},
+    },
+  },
   cardsList
+);
+const popupWithContent = new PopupWithForm(
+  overlayAdd,
+  () => {
+    const currentInputs = {
+      name: inputContentName.value,
+      link: inputContentLink.value,
+    };
+    return currentInputs;
+  },
+  (evt, data) => {
+    evt.preventDefault();
+    const newCard = new Card(data, '.form-template', () => {
+      const popupWithImage = new PopupWithImage(
+        data,
+        overlayPreview,
+        previewPicture,
+        previewDescription
+      );
+      popupWithImage.setEventListeners();
+      popupWithImage.open();
+    });
+    const sectionElement = newCard.render();
+    cardsList.prepend(sectionElement);
+    console.log(data);
+  }
 );
 
 // function openPopup(popup) {
@@ -122,13 +145,6 @@ const section = new Section(
 //   closePopup(overlayEdit);
 // }
 
-function handlePreviewPicture(el) {
-  openPopup(overlayPreview);
-  previewPicture.src = el.link;
-  previewPicture.alt = el.name;
-  previewDescription.textContent = el.name;
-}
-
 // function renderCard(data, wrap) {
 //   const card = new Card(
 //     data,
@@ -139,17 +155,6 @@ function handlePreviewPicture(el) {
 //   );
 //   const cardElement = card.render();
 //   wrap.prepend(cardElement);
-// }
-
-// function submitContentToCard(evt) {
-//   evt.preventDefault();
-//   const newCard = {
-//     name: inputContentName.value,
-//     link: inputContentLink.value,
-//   };
-//   renderCard(newCard, cardsList);
-//   closePopup(overlayAdd);
-//   popupContentForm.reset();
 // }
 
 // function handleEscKey(evt) {
@@ -178,12 +183,14 @@ function handlePreviewPicture(el) {
 //   profileFormValidate.resetValidation();
 // });
 // popupProfileForm.addEventListener('submit', submitPopupToProfile);
-// addButton.addEventListener('click', () => {
-//   popupContentForm.reset();
-//   openPopup(overlayAdd);
-//   contentFormValidate.resetValidation();
-// });
+addButton.addEventListener('click', () => {
+  popupContentForm.reset();
+  popupWithContent.open();
+  popupWithContent.setEventListeners();
+  contentFormValidate.resetValidation();
+});
 // popupContentForm.addEventListener('submit', submitContentToCard);
+
 section.renderAll();
 profileFormValidate.enableValidation();
 contentFormValidate.enableValidation();
