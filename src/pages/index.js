@@ -39,7 +39,6 @@ const initialCards = [
       'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ];
-const overlays = document.querySelectorAll('.overlay');
 const overlayEdit = document.querySelector('.overlay_type_edit');
 const overlayAdd = document.querySelector('.overlay_type_add');
 const editButton = document.querySelector('.profile__btn-edit');
@@ -65,8 +64,6 @@ const userProfile = {
   name: document.querySelector('.profile__name'),
   description: document.querySelector('.profile__description'),
 };
-const profileName = document.querySelector('.profile__name');
-const profileDescription = document.querySelector('.profile__description');
 const inputName = overlayEdit.querySelector('.popup__input_type_name');
 const inputDescription = overlayEdit.querySelector(
   '.popup__input_type_description'
@@ -75,23 +72,12 @@ const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
 const previewDescription = overlayPreview.querySelector('.popup__description');
 const previewPicture = overlayPreview.querySelector('.popup__preview-picture');
-const inputContentName = overlayAdd.querySelector('.popup__input_type_name');
-const inputContentLink = overlayAdd.querySelector(
-  '.popup__input_type_url-image'
-);
 const section = new Section(
   {
     items: initialCards,
     renderer: (data) => {
       const card = new Card(data, '.form-template', () => {
-        const popupWithImage = new PopupWithImage(
-          data,
-          overlayPreview,
-          previewPicture,
-          previewDescription
-        );
-        popupWithImage.setEventListeners();
-        popupWithImage.open();
+        popupWithImage.open(data);
       });
       const sectionElement = card.render();
       section.addItem(sectionElement);
@@ -99,47 +85,40 @@ const section = new Section(
   },
   cardsList
 );
-const popupWithContent = new PopupWithForm(
-  overlayAdd,
-  (evt, data) => {
-    evt.preventDefault();
-    const newCard = new Card(data, '.form-template', () => {
-      const popupWithImage = new PopupWithImage(
-        data,
-        overlayPreview,
-        previewPicture,
-        previewDescription
-      );
-      popupWithImage.setEventListeners();
-      popupWithImage.open();
-    });
-    const sectionElement = newCard.render();
-    cardsList.prepend(sectionElement);
-  }
+const popupWithImage = new PopupWithImage(
+  overlayPreview,
+  previewPicture,
+  previewDescription
 );
+const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
+  evt.preventDefault();
+  const newCard = new Card(data, '.form-template', () => {
+    popupWithImage.open(data);
+  });
+  const sectionElement = newCard.render();
+  cardsList.prepend(sectionElement);
+});
 const userInfo = new UserInfo(userProfile);
-const popupWithUserInfo = new PopupWithForm(
-  overlayEdit,
-  (evt, data) => {
-    evt.preventDefault();
-    userInfo.setUserInfo(data);
-  }
-);
+const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
+  evt.preventDefault();
+  userInfo.setUserInfo(data);
+});
 
 editButton.addEventListener('click', () => {
   popupProfileForm.reset();
   userInfo.getUserInfo(inputName, inputDescription);
   popupWithUserInfo.open();
-  popupWithUserInfo.setEventListeners();
   profileFormValidate.resetValidation();
 });
 addButton.addEventListener('click', () => {
   popupContentForm.reset();
   popupWithContent.open();
-  popupWithContent.setEventListeners();
   contentFormValidate.resetValidation();
 });
 
 section.renderAll();
+popupWithImage.setEventListeners();
+popupWithContent.setEventListeners();
+popupWithUserInfo.setEventListeners();
 profileFormValidate.enableValidation();
 contentFormValidate.enableValidation();

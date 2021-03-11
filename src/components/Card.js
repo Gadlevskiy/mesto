@@ -20,9 +20,10 @@ export class Card {
 
   render() {
     this._view = this._getTemplate();
+    this._cardImage = this._view.querySelector('.elements__image');
     this._setEventListeners();
-    this._view.querySelector('.elements__image').src = this._link;
-    this._view.querySelector('.elements__image').alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._view.querySelector('.elements__title').textContent = this._name;
     return this._view;
   }
@@ -36,14 +37,11 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._view
-      .querySelector('.elements__image')
-      .addEventListener('click', () => this._previewPicture(this._data));
+    this._cardImage.addEventListener('click', () => this._previewPicture(this._data));
     const likeBtn = this._view.querySelector('.elements__like-btn');
     likeBtn.addEventListener('click', () => this._handleLikeIcon(likeBtn));
     this._view
       .querySelector('.elements__delete-btn')
       .addEventListener('click', this._handleDeleteCard);
-    this._view.addEventListener('click', this._handleCardClick);
   }
 }

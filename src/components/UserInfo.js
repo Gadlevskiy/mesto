@@ -10,7 +10,6 @@ export class UserInfo {
   }
 
   setUserInfo(data) {
-    console.log(data);
     this._name.textContent = data.name;
     this._description.textContent = data.description;
   }
