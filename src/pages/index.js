@@ -94,20 +94,13 @@ const section = new Section(
         popupWithImage.open();
       });
       const sectionElement = card.render();
-      cardsList.prepend(sectionElement);
+      section.addItem(sectionElement);
     },
   },
   cardsList
 );
 const popupWithContent = new PopupWithForm(
   overlayAdd,
-  () => {
-    const currentInputs = {
-      name: inputContentName.value,
-      link: inputContentLink.value,
-    };
-    return currentInputs;
-  },
   (evt, data) => {
     evt.preventDefault();
     const newCard = new Card(data, '.form-template', () => {
@@ -127,13 +120,6 @@ const popupWithContent = new PopupWithForm(
 const userInfo = new UserInfo(userProfile);
 const popupWithUserInfo = new PopupWithForm(
   overlayEdit,
-  () => {
-    const currentInputs = {
-      name: inputName.value,
-      description: inputDescription.value,
-    };
-    return currentInputs;
-  },
   (evt, data) => {
     evt.preventDefault();
     userInfo.setUserInfo(data);
