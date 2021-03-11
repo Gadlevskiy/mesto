@@ -96,7 +96,7 @@ const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
     popupWithImage.open(data);
   });
   const sectionElement = newCard.render();
-  cardsList.prepend(sectionElement);
+  section.addItem(sectionElement);
 });
 const userInfo = new UserInfo(userProfile);
 const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
