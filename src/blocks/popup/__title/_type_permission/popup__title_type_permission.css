@@ -1,0 +1,9 @@
+.popup__title_type_permission {
+  margin-bottom: 48px;
+}
+
+@media screen and (min-width: 1024px) {
+  .popup__title_type_permission {
+    margin-bottom: 38px;
+  }
+}

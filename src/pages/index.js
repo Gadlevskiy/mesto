@@ -79,7 +79,7 @@ const section = new Section(
       const card = new Card(data, '.form-template', () => {
         popupWithImage.open(data);
       });
-      const sectionElement = card.render();
+      const sectionElement = card.render(false);
       section.addItem(sectionElement);
     },
   },
@@ -95,7 +95,7 @@ const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
   const newCard = new Card(data, '.form-template', () => {
     popupWithImage.open(data);
   });
-  const sectionElement = newCard.render();
+  const sectionElement = newCard.render(true);
   section.addItem(sectionElement);
 });
 const userInfo = new UserInfo(userProfile);
