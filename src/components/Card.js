@@ -36,8 +36,19 @@ export class Card {
     evt.target.closest('.elements__element').remove();
   }
 
+  // _handleLikeIcon(btn) {
+  //   btn.classList.toggle('elements__like-btn_type_active');
+  // }
+
   _handleLikeIcon(btn) {
-    btn.classList.toggle('elements__like-btn_type_active');
+    const numberOfLikes = btn.parentNode.querySelector('.elements__like-count');
+    if (!btn.classList.contains('elements__like-btn_type_active')) {
+      btn.classList.add('elements__like-btn_type_active');
+      numberOfLikes.textContent = +(numberOfLikes.textContent) + 1;
+    } else {
+      btn.classList.remove('elements__like-btn_type_active');
+      numberOfLikes.textContent = +(numberOfLikes.textContent) - 1;
+    }
   }
 
   _setEventListeners() {
