@@ -36,10 +36,6 @@ export class Card {
     evt.target.closest('.elements__element').remove();
   }
 
-  // _handleLikeIcon(btn) {
-  //   btn.classList.toggle('elements__like-btn_type_active');
-  // }
-
   _handleLikeIcon(btn) {
     const numberOfLikes = btn.parentNode.querySelector('.elements__like-count');
     if (!btn.classList.contains('elements__like-btn_type_active')) {

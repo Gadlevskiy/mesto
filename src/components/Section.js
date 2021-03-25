@@ -1,14 +1,15 @@
 export class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._initialItems = items;
+  constructor({ renderer }, containerSelector, api) {
     this._renderer = renderer;
     this._container = containerSelector;
+    this._api = api;
   }
 
   renderAll() {
-    this._initialItems.forEach((item) => {
+    this._api.getInitialCards().then((init) =>{
+    init.forEach((item) => {
       this._renderer(item);
-    });
+    });})
   }
 
   addItem(element) {
