@@ -1,16 +1,34 @@
 export class UserInfo {
-  constructor({ name, description }) {
+  constructor({ name, about, avatar }, api) {
     this._name = name;
-    this._description = description;
+    this._about = about;
+    this._avatar = avatar;
+    this._api = api;
   }
 
-  getUserInfo(inputNameSelector, inputDescriptionSelector) {
+  getUserInfo() {
+    this._api.getProfile().then((data) => {
+      this._name.textContent = data.name;
+      this._about.textContent = data.about;
+      this._avatar.src = data.avatar;
+    });
+  }
+
+  editUserInfo(inputNameSelector, inputAboutSelector) {
     inputNameSelector.value = this._name.textContent;
-    inputDescriptionSelector.value = this._description.textContent;
+    inputAboutSelector.value = this._about.textContent;
   }
 
   setUserInfo(data) {
-    this._name.textContent = data.name;
-    this._description.textContent = data.description;
+    this._api.editProfile(data).then(() => {
+      this._name.textContent = data.name;
+      this._about.textContent = data.about;
+    });
+  }
+
+  setUserAvatar(userUrl) {
+    this._api.editAvatar(userUrl).then((res)=> {
+      this._avatar.src = res.avatar;
+    })
   }
 }

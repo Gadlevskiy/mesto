@@ -38,9 +38,9 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: user.name,
-        about: user.about
-      })
-    },).then((res) => {
+        about: user.about,
+      }),
+    }).then((res) => {
       if (res.ok) {
         return res.json();
       }
@@ -50,10 +50,31 @@ export class Api {
     });
   }
 
-  createCard() {
+  editAvatar(userUrl) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: userUrl.avatar,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(
+        new Error(`Произошла ошибка со статусом ${res.status}`)
+      );
+    });
+  }
+
+  createCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link
+      })
     })
       .then((res) => {
         if (res.ok) {

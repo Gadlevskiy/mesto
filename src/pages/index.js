@@ -45,12 +45,11 @@ const avatarFormValidate = new FormValidator(
 );
 const userProfile = {
   name: document.querySelector('.profile__name'),
-  description: document.querySelector('.profile__description'),
+  about: document.querySelector('.profile__description'),
+  avatar: document.querySelector('.profile__photo'),
 };
 const inputName = overlayEdit.querySelector('.popup__input_type_name');
-const inputDescription = overlayEdit.querySelector(
-  '.popup__input_type_description'
-);
+const inputDescription = overlayEdit.querySelector('.popup__input_type_about');
 const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
 const previewDescription = overlayPreview.querySelector('.popup__description');
@@ -77,24 +76,27 @@ const popupWithImage = new PopupWithImage(
 );
 const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
   evt.preventDefault();
-  const newCard = new Card(data, '.form-template', () => {
-    popupWithImage.open(data);
+  api.createCard(data).then((res) => {
+    const newCard = new Card(res, '.form-template', () => {
+      popupWithImage.open(res);
+    });
+    const sectionElement = newCard.render(true);
+    section.addItem(sectionElement);
   });
-  const sectionElement = newCard.render(true);
-  section.addItem(sectionElement);
 });
-const userInfo = new UserInfo(userProfile);
+const userInfo = new UserInfo(userProfile, api);
 const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
   evt.preventDefault();
   userInfo.setUserInfo(data);
 });
-const popupWithAvatar = new PopupWithForm(overlayEditAvatar, (evt) => {
+const popupWithAvatar = new PopupWithForm(overlayEditAvatar, (evt, data) => {
   evt.preventDefault();
+  userInfo.setUserAvatar(data);
 });
 
 editButton.addEventListener('click', () => {
   popupProfileForm.reset();
-  userInfo.getUserInfo(inputName, inputDescription);
+  userInfo.editUserInfo(inputName, inputDescription);
   popupWithUserInfo.open();
   profileFormValidate.resetValidation();
 });
@@ -108,6 +110,7 @@ editAvatarButton.addEventListener('click', () => {
   popupWithAvatar.open();
   avatarFormValidate.resetValidation();
 });
+userInfo.getUserInfo();
 popupWithImage.setEventListeners();
 popupWithContent.setEventListeners();
 popupWithUserInfo.setEventListeners();
