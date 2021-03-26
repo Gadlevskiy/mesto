@@ -2,13 +2,18 @@ export class Card {
   constructor(
     data,
     userTemplate,
-    previewPicture
+    previewPicture,
+    api,
+    handleDeleteCard
   ) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._userTemplate = userTemplate;
     this._previewPicture = previewPicture;
+    this._api = api;
+    this._handleDeleteCard = handleDeleteCard
   }
 
   _getTemplate() {
@@ -22,19 +27,24 @@ export class Card {
     this._view = this._getTemplate();
     this._cardImage = this._view.querySelector('.elements__image');
     this._deleteIcon = this._view.querySelector('.elements__delete-btn');
+    this._view.querySelector('.elements__like-count').textContent = this._likes.length;
     this._setEventListeners();
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
+    this._cardImage.id = this._data._id;
     this._view.querySelector('.elements__title').textContent = this._name;
-    if (!isMine) {
-      this._deleteIcon.remove();
-    }
+    this._api.getProfile().then((res)=>{
+      if (isMine!=res.name) {
+        this._deleteIcon.remove();
+      }
+    })
+    .catch((err) => Promise.reject(err));
     return this._view;
   }
 
-  _handleDeleteCard(evt) {
-    evt.target.closest('.elements__element').remove();
-  }
+  // _handleDeleteCard(evt) {
+  //   evt.target.closest('.elements__element').remove();
+  // }
 
   _handleLikeIcon(btn) {
     const numberOfLikes = btn.parentNode.querySelector('.elements__like-count');

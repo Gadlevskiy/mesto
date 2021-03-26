@@ -2,15 +2,18 @@ import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import {PopupWithPremission} from '../components/PopupWithPremission.js';
 import { Section } from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
 import '../pages/index.css';
 import { from } from 'webpack-sources/lib/CompatSource';
+import { Popup } from '../components/Popup.js';
 
 const overlayEdit = document.querySelector('.overlay_type_edit');
 const overlayAdd = document.querySelector('.overlay_type_add');
 const overlayEditAvatar = document.querySelector('.overlay_type_edit-avatar');
+const overlayPremission = document.querySelector('.overlay_type_permission');
 const editButton = document.querySelector('.profile__btn-edit');
 const addButton = document.querySelector('.profile__btn-add-content');
 const editAvatarButton = document.querySelector('.profile__btn-edit-avatar');
@@ -57,10 +60,18 @@ const previewPicture = overlayPreview.querySelector('.popup__preview-picture');
 const section = new Section(
   {
     renderer: (data) => {
-      const card = new Card(data, '.form-template', () => {
-        popupWithImage.open(data);
-      });
-      const sectionElement = card.render(false);
+      const card = new Card(
+        data,
+        '.form-template',
+        () => {
+          popupWithImage.open(data);
+        },
+        api,
+        ()=>{
+          popupPremission.open(data._id);
+        }
+      );
+      const sectionElement = card.render(data.owner.name);
       section.addItem(sectionElement);
     },
   },
@@ -77,14 +88,24 @@ const popupWithImage = new PopupWithImage(
 const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
   evt.preventDefault();
   api.createCard(data).then((res) => {
-    const newCard = new Card(res, '.form-template', () => {
-      popupWithImage.open(res);
-    });
-    const sectionElement = newCard.render(true);
+    const newCard = new Card(
+      res,
+      '.form-template',
+      () => {
+        popupWithImage.open(res);
+      },
+      api,
+      ()=>{
+        popupPremission.open(res._id);
+      }
+    );
+    const sectionElement = newCard.render(res.owner.name);
     section.addItem(sectionElement);
   });
 });
+
 const userInfo = new UserInfo(userProfile, api);
+const popupPremission = new PopupWithPremission(overlayPremission, api);
 const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
   evt.preventDefault();
   userInfo.setUserInfo(data);
@@ -115,6 +136,7 @@ popupWithImage.setEventListeners();
 popupWithContent.setEventListeners();
 popupWithUserInfo.setEventListeners();
 popupWithAvatar.setEventListeners();
+popupPremission.setEventListeners();
 profileFormValidate.enableValidation();
 contentFormValidate.enableValidation();
 avatarFormValidate.enableValidation();

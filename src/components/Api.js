@@ -73,8 +73,8 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        link: data.link
-      })
+        link: data.link,
+      }),
     })
       .then((res) => {
         if (res.ok) {
@@ -87,8 +87,8 @@ export class Api {
       .catch((err) => Promise.reject(err));
   }
 
-  deleteCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     })
