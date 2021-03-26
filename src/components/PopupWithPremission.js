@@ -9,18 +9,17 @@ export class PopupWithPremission extends Popup {
   open(id) {
     super.open();
     this._id = id;
-    this._premissonBtn.addEventListener('click',this._submit);
+    this._premissonBtn.addEventListener('click',()=>this._submit(this._id));
   }
 
   close() {
     super.close();
-    console.log(this._premissonBtn.id);
-    this._premissonBtn.removeEventListener('click',this._submit);
+    this._premissonBtn.removeEventListener('click',()=>this._submit(this._id));
   }
 
-  _submit() {
-    this._api.deleteCard(this._id).then((res)=>{
-      document.getElementById(res._id).remove();
+  _submit(id) {
+    this._api.deleteCard(id).then(()=>{
+      document.getElementById(id).remove();
       this.close();
     })
   }

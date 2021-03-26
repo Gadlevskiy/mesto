@@ -6,12 +6,10 @@ export class UserInfo {
     this._api = api;
   }
 
-  getUserInfo() {
-    this._api.getProfile().then((data) => {
+  getUserInfo(data) {
       this._name.textContent = data.name;
       this._about.textContent = data.about;
       this._avatar.src = data.avatar;
-    });
   }
 
   editUserInfo(inputNameSelector, inputAboutSelector) {

@@ -2,7 +2,7 @@ import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
-import {PopupWithPremission} from '../components/PopupWithPremission.js';
+import { PopupWithPremission } from '../components/PopupWithPremission.js';
 import { Section } from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
@@ -57,52 +57,64 @@ const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
 const previewDescription = overlayPreview.querySelector('.popup__description');
 const previewPicture = overlayPreview.querySelector('.popup__preview-picture');
-const section = new Section(
-  {
-    renderer: (data) => {
-      const card = new Card(
-        data,
+api.getProfile().then((author) => {
+  userInfo.getUserInfo(author);
+  const section = new Section(
+    {
+      renderer: (data) => {
+        const card = new Card(
+          data,
+          '.form-template',
+          () => {
+            popupWithImage.open(data);
+          },
+          api,
+          () => {
+            popupPremission.open(data._id);
+          },
+          author
+        );
+        const sectionElement = card.render(data.owner.name);
+        section.addItem(sectionElement);
+      },
+    },
+    cardsList,
+    api
+  );
+  section.renderAll();
+  const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
+    evt.preventDefault();
+    api.createCard(data).then((res) => {
+      const newCard = new Card(
+        res,
         '.form-template',
         () => {
-          popupWithImage.open(data);
+          popupWithImage.open(res);
         },
         api,
-        ()=>{
-          popupPremission.open(data._id);
-        }
+        () => {
+          popupPremission.open(res._id);
+        },
+        author
       );
-      const sectionElement = card.render(data.owner.name);
+      const sectionElement = newCard.render(res.owner.name);
       section.addItem(sectionElement);
-    },
-  },
-  cardsList,
-  api
-);
-section.renderAll();
+    });
+  });
+
+  addButton.addEventListener('click', () => {
+    popupContentForm.reset();
+    popupWithContent.open();
+    contentFormValidate.resetValidation();
+  });
+  popupWithContent.setEventListeners();
+});
 
 const popupWithImage = new PopupWithImage(
   overlayPreview,
   previewPicture,
   previewDescription
 );
-const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
-  evt.preventDefault();
-  api.createCard(data).then((res) => {
-    const newCard = new Card(
-      res,
-      '.form-template',
-      () => {
-        popupWithImage.open(res);
-      },
-      api,
-      ()=>{
-        popupPremission.open(res._id);
-      }
-    );
-    const sectionElement = newCard.render(res.owner.name);
-    section.addItem(sectionElement);
-  });
-});
 
 const userInfo = new UserInfo(userProfile, api);
 const popupPremission = new PopupWithPremission(overlayPremission, api);
@@ -121,19 +133,14 @@ editButton.addEventListener('click', () => {
   popupWithUserInfo.open();
   profileFormValidate.resetValidation();
 });
-addButton.addEventListener('click', () => {
-  popupContentForm.reset();
-  popupWithContent.open();
-  contentFormValidate.resetValidation();
-});
+
 editAvatarButton.addEventListener('click', () => {
   popupAvatarForm.reset();
   popupWithAvatar.open();
   avatarFormValidate.resetValidation();
 });
-userInfo.getUserInfo();
 popupWithImage.setEventListeners();
-popupWithContent.setEventListeners();
+
 popupWithUserInfo.setEventListeners();
 popupWithAvatar.setEventListeners();
 popupPremission.setEventListeners();
