@@ -71,8 +71,9 @@ api
               popupWithImage.open(data);
             },
             api,
-            () => {
+            (id) => {
               popupPremission.open();
+              popupPremission.returnId(id);
             },
             author
           );
@@ -97,8 +98,9 @@ api
               popupWithImage.open(res);
             },
             api,
-            () => {
+            (id) => {
               popupPremission.open();
+              popupPremission.returnId(id);
             },
             author
           );
@@ -106,7 +108,7 @@ api
           section.addItem(sectionElement);
         })
         .catch((err) => Promise.reject(err))
-        .finally(()=>{
+        .finally(() => {
           popupWithContent.removePreloader('Создать');
           popupWithContent.close();
         });
@@ -130,7 +132,25 @@ const popupWithImage = new PopupWithImage(
 );
 
 const userInfo = new UserInfo(userProfile, api);
-const popupPremission = new PopupWithPremission(overlayPremission);
+const popupPremission = new PopupWithPremission(
+  overlayPremission,
+  (evt, data) => {
+    evt.preventDefault();
+    popupPremission.addPreloader();
+    api
+      .deleteCard(data)
+      .then(() => {
+        document.getElementById(data).remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupPremission.removePreloader('Да');
+        popupPremission.close();
+      });
+  }
+);
 const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
   evt.preventDefault();
   popupWithUserInfo.addPreloader();
@@ -141,7 +161,8 @@ const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
     })
     .catch((err) => {
       console.log(err);
-    }).finally(()=>{
+    })
+    .finally(() => {
       popupWithUserInfo.removePreloader('Сохранить');
       popupWithUserInfo.close();
     });
@@ -149,15 +170,18 @@ const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
 const popupWithAvatar = new PopupWithForm(overlayEditAvatar, (evt, data) => {
   evt.preventDefault();
   popupWithAvatar.addPreloader();
-  api.editAvatar(data).then((res) => {
-    userInfo.setUserAvatar(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  }).finally(()=>{
-    popupWithAvatar.removePreloader('Сохранить');
-    popupWithAvatar.close();
-  });
+  api
+    .editAvatar(data)
+    .then((res) => {
+      userInfo.setUserAvatar(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupWithAvatar.removePreloader('Сохранить');
+      popupWithAvatar.close();
+    });
 });
 
 editButton.addEventListener('click', () => {
