@@ -18,15 +18,11 @@ export class UserInfo {
   }
 
   setUserInfo(data) {
-    this._api.editProfile(data).then(() => {
-      this._name.textContent = data.name;
-      this._about.textContent = data.about;
-    });
+    this._name.textContent = data.name;
+    this._about.textContent = data.about;
   }
 
-  setUserAvatar(userUrl) {
-    this._api.editAvatar(userUrl).then((res)=> {
-      this._avatar.src = res.avatar;
-    })
+  setUserAvatar(data) {
+    this._avatar.src = data.avatar;
   }
 }

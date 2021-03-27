@@ -4,18 +4,20 @@ export class Api {
     this._headers = options.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(
+      new Error(`Произошла ошибка со статусом ${res.status}`)
+    );
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 
@@ -23,14 +25,7 @@ export class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 
@@ -43,14 +38,7 @@ export class Api {
         about: user.about,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 
@@ -62,14 +50,7 @@ export class Api {
         avatar: userUrl.avatar,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 
@@ -82,14 +63,7 @@ export class Api {
         link: data.link,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 
@@ -98,14 +72,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 
@@ -114,14 +81,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 
@@ -130,14 +90,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(
-          new Error(`Произошла ошибка со статусом ${res.status}`)
-        );
-      })
+      .then(this._checkResponse)
       .catch((err) => Promise.reject(err));
   }
 }

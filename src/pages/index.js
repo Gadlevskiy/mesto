@@ -71,9 +71,8 @@ api
               popupWithImage.open(data);
             },
             api,
-            ()=>{
+            () => {
               popupPremission.open();
-
             },
             author
           );
@@ -87,6 +86,7 @@ api
     section.renderAll();
     const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
       evt.preventDefault();
+      popupWithContent.addPreloader();
       api
         .createCard(data)
         .then((res) => {
@@ -97,13 +97,19 @@ api
               popupWithImage.open(res);
             },
             api,
-            popupPremission,
+            () => {
+              popupPremission.open();
+            },
             author
           );
           const sectionElement = newCard.render(res.owner);
           section.addItem(sectionElement);
         })
-        .catch((err) => Promise.reject(err));
+        .catch((err) => Promise.reject(err))
+        .finally(()=>{
+          popupWithContent.removePreloader('Создать');
+          popupWithContent.close();
+        });
     });
 
     addButton.addEventListener('click', () => {
@@ -124,14 +130,34 @@ const popupWithImage = new PopupWithImage(
 );
 
 const userInfo = new UserInfo(userProfile, api);
-const popupPremission = new PopupWithPremission(overlayPremission, );
+const popupPremission = new PopupWithPremission(overlayPremission);
 const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
   evt.preventDefault();
-  userInfo.setUserInfo(data);
+  popupWithUserInfo.addPreloader();
+  api
+    .editProfile(data)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    }).finally(()=>{
+      popupWithUserInfo.removePreloader('Сохранить');
+      popupWithUserInfo.close();
+    });
 });
 const popupWithAvatar = new PopupWithForm(overlayEditAvatar, (evt, data) => {
   evt.preventDefault();
-  userInfo.setUserAvatar(data);
+  popupWithAvatar.addPreloader();
+  api.editAvatar(data).then((res) => {
+    userInfo.setUserAvatar(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  }).finally(()=>{
+    popupWithAvatar.removePreloader('Сохранить');
+    popupWithAvatar.close();
+  });
 });
 
 editButton.addEventListener('click', () => {
