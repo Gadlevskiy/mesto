@@ -22,14 +22,16 @@ export class Api {
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(
-        new Error(`Произошла ошибка со статусом ${res.status}`)
-      );
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(
+          new Error(`Произошла ошибка со статусом ${res.status}`)
+        );
+      })
+      .catch((err) => Promise.reject(err));
   }
 
   editProfile(user) {
@@ -40,14 +42,16 @@ export class Api {
         name: user.name,
         about: user.about,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(
-        new Error(`Произошла ошибка со статусом ${res.status}`)
-      );
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(
+          new Error(`Произошла ошибка со статусом ${res.status}`)
+        );
+      })
+      .catch((err) => Promise.reject(err));
   }
 
   editAvatar(userUrl) {
@@ -57,14 +61,16 @@ export class Api {
       body: JSON.stringify({
         avatar: userUrl.avatar,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(
-        new Error(`Произошла ошибка со статусом ${res.status}`)
-      );
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(
+          new Error(`Произошла ошибка со статусом ${res.status}`)
+        );
+      })
+      .catch((err) => Promise.reject(err));
   }
 
   createCard(data) {

@@ -1,12 +1,5 @@
 export class Card {
-  constructor(
-    data,
-    userTemplate,
-    previewPicture,
-    api,
-    handleDeleteCard,
-    author
-  ) {
+  constructor(data, userTemplate, previewPicture, api, callback, author) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
@@ -14,7 +7,7 @@ export class Card {
     this._userTemplate = userTemplate;
     this._previewPicture = previewPicture;
     this._api = api;
-    this._handleDeleteCard = handleDeleteCard;
+    this._handleDeleteCard = callback;
     this._author = author;
   }
 
@@ -27,18 +20,22 @@ export class Card {
 
   render(isMine) {
     this._view = this._getTemplate();
+    this._likeBtn = this._view.querySelector('.elements__like-btn');
     this._cardImage = this._view.querySelector('.elements__image');
     this._deleteIcon = this._view.querySelector('.elements__delete-btn');
     this._view.querySelector(
       '.elements__like-count'
     ).textContent = this._likes.length;
-    this._setEventListeners();
+    this._setEventListeners(this._likeBtn);
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._view.querySelector('.elements__element').id = this._data._id;
     this._view.querySelector('.elements__title').textContent = this._name;
-    if (isMine != this._author.name) {
+    if (isMine._id != this._author._id) {
       this._deleteIcon.remove();
+    }
+    if (this._likes.some((item)=>{return item._id === isMine._id})){
+      this._likeBtn.classList.add('elements__like-btn_type_active');
     }
     return this._view;
   }
@@ -58,11 +55,17 @@ export class Card {
     }
   }
 
-  _setEventListeners() {
+  // _deleteCard() {
+  //   this._api.deleteCard(this._data._id).then(() => {
+  //     document.getElementById(this._data._id).remove();
+  //     this._popup.close();
+  //   });
+  // }
+
+  _setEventListeners(likeBtn) {
     this._cardImage.addEventListener('click', () =>
       this._previewPicture(this._data)
     );
-    const likeBtn = this._view.querySelector('.elements__like-btn');
     likeBtn.addEventListener('click', () => this._handleLikeIcon(likeBtn));
     this._deleteIcon.addEventListener('click', this._handleDeleteCard);
   }

@@ -57,58 +57,65 @@ const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
 const previewDescription = overlayPreview.querySelector('.popup__description');
 const previewPicture = overlayPreview.querySelector('.popup__preview-picture');
-api.getProfile().then((author) => {
-  userInfo.getUserInfo(author);
-  const section = new Section(
-    {
-      renderer: (data) => {
-        const card = new Card(
-          data,
-          '.form-template',
-          () => {
-            popupWithImage.open(data);
-          },
-          api,
-          () => {
-            popupPremission.open(data._id);
-          },
-          author
-        );
-        const sectionElement = card.render(data.owner.name);
-        section.addItem(sectionElement);
-      },
-    },
-    cardsList,
-    api
-  );
-  section.renderAll();
-  const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
-    evt.preventDefault();
-    api.createCard(data).then((res) => {
-      const newCard = new Card(
-        res,
-        '.form-template',
-        () => {
-          popupWithImage.open(res);
-        },
-        api,
-        () => {
-          popupPremission.open(res._id);
-        },
-        author
-      );
-      const sectionElement = newCard.render(res.owner.name);
-      section.addItem(sectionElement);
-    });
-  });
+api
+  .getProfile()
+  .then((author) => {
+    userInfo.getUserInfo(author);
+    const section = new Section(
+      {
+        renderer: (data) => {
+          const card = new Card(
+            data,
+            '.form-template',
+            () => {
+              popupWithImage.open(data);
+            },
+            api,
+            ()=>{
+              popupPremission.open();
 
-  addButton.addEventListener('click', () => {
-    popupContentForm.reset();
-    popupWithContent.open();
-    contentFormValidate.resetValidation();
+            },
+            author
+          );
+          const sectionElement = card.render(data.owner);
+          section.addItem(sectionElement);
+        },
+      },
+      cardsList,
+      api
+    );
+    section.renderAll();
+    const popupWithContent = new PopupWithForm(overlayAdd, (evt, data) => {
+      evt.preventDefault();
+      api
+        .createCard(data)
+        .then((res) => {
+          const newCard = new Card(
+            res,
+            '.form-template',
+            () => {
+              popupWithImage.open(res);
+            },
+            api,
+            popupPremission,
+            author
+          );
+          const sectionElement = newCard.render(res.owner);
+          section.addItem(sectionElement);
+        })
+        .catch((err) => Promise.reject(err));
+    });
+
+    addButton.addEventListener('click', () => {
+      popupContentForm.reset();
+      popupWithContent.open();
+      contentFormValidate.resetValidation();
+    });
+    popupWithContent.setEventListeners();
+  })
+  .catch((err) => {
+    console.log(err);
   });
-  popupWithContent.setEventListeners();
-});
 
 const popupWithImage = new PopupWithImage(
   overlayPreview,
@@ -117,7 +124,7 @@ const popupWithImage = new PopupWithImage(
 );
 
 const userInfo = new UserInfo(userProfile, api);
-const popupPremission = new PopupWithPremission(overlayPremission, api);
+const popupPremission = new PopupWithPremission(overlayPremission, );
 const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
   evt.preventDefault();
   userInfo.setUserInfo(data);
