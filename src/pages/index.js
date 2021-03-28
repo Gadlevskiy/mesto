@@ -57,6 +57,24 @@ const cardsList = document.querySelector('.elements__list');
 const overlayPreview = document.querySelector('.overlay_type_preview');
 const previewDescription = overlayPreview.querySelector('.popup__description');
 const previewPicture = overlayPreview.querySelector('.popup__preview-picture');
+
+function createCard(author, data) {
+  const card = new Card(
+    data,
+    '.form-template',
+    () => {
+      popupWithImage.open(data);
+    },
+    api,
+    (id) => {
+      popupPremission.open();
+      popupPremission.returnId(id);
+    },
+    author
+  );
+  return card.render(data.owner);
+}
+
 api
   .getProfile()
   .then((author) => {
@@ -64,21 +82,7 @@ api
     const section = new Section(
       {
         renderer: (data) => {
-          const card = new Card(
-            data,
-            '.form-template',
-            () => {
-              popupWithImage.open(data);
-            },
-            api,
-            (id) => {
-              popupPremission.open();
-              popupPremission.returnId(id);
-            },
-            author
-          );
-          const sectionElement = card.render(data.owner);
-          section.addItem(sectionElement);
+          section.addItem(createCard(author, data));
         },
       },
       cardsList,
@@ -91,21 +95,7 @@ api
       api
         .createCard(data)
         .then((res) => {
-          const newCard = new Card(
-            res,
-            '.form-template',
-            () => {
-              popupWithImage.open(res);
-            },
-            api,
-            (id) => {
-              popupPremission.open();
-              popupPremission.returnId(id);
-            },
-            author
-          );
-          const sectionElement = newCard.render(res.owner);
-          section.addItem(sectionElement);
+          section.addItem(createCard(author, res));
           popupWithContent.close();
         })
         .catch((err) => {
