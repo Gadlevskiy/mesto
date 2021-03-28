@@ -17,20 +17,14 @@ export class Api {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   editProfile(user) {
@@ -42,10 +36,7 @@ export class Api {
         about: user.about,
       }),
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   editAvatar(userUrl) {
@@ -56,10 +47,7 @@ export class Api {
         avatar: userUrl.avatar,
       }),
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   createCard(data) {
@@ -71,10 +59,7 @@ export class Api {
         link: data.link,
       }),
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   deleteCard(id) {
@@ -82,10 +67,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   like(id) {
@@ -93,10 +75,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers,
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   unlike(id) {
@@ -104,9 +83,6 @@ export class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 }

@@ -50,11 +50,17 @@ export class Card {
       this._api.like(this._data._id).then((cardRes) => {
         btn.classList.add('elements__like-btn_type_active');
         numberOfLikes.textContent = cardRes.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
       });
     } else {
       this._api.unlike(this._data._id).then((cardRes) => {
         btn.classList.remove('elements__like-btn_type_active');
         numberOfLikes.textContent = cardRes.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
       });
     }
   }

@@ -106,11 +106,13 @@ api
           );
           const sectionElement = newCard.render(res.owner);
           section.addItem(sectionElement);
+          popupWithContent.close();
         })
-        .catch((err) => Promise.reject(err))
+        .catch((err) => {
+          console.log(err);
+        })
         .finally(() => {
           popupWithContent.removePreloader('Создать');
-          popupWithContent.close();
         });
     });
 
@@ -131,7 +133,7 @@ const popupWithImage = new PopupWithImage(
   previewDescription
 );
 
-const userInfo = new UserInfo(userProfile, api);
+const userInfo = new UserInfo(userProfile);
 const popupPremission = new PopupWithPremission(
   overlayPremission,
   (evt, data) => {
@@ -141,13 +143,13 @@ const popupPremission = new PopupWithPremission(
       .deleteCard(data)
       .then(() => {
         document.getElementById(data).remove();
+        popupPremission.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupPremission.removePreloader('Да');
-        popupPremission.close();
       });
   }
 );
@@ -158,13 +160,13 @@ const popupWithUserInfo = new PopupWithForm(overlayEdit, (evt, data) => {
     .editProfile(data)
     .then((res) => {
       userInfo.setUserInfo(res);
+      popupWithUserInfo.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
       popupWithUserInfo.removePreloader('Сохранить');
-      popupWithUserInfo.close();
     });
 });
 const popupWithAvatar = new PopupWithForm(overlayEditAvatar, (evt, data) => {
@@ -174,25 +176,23 @@ const popupWithAvatar = new PopupWithForm(overlayEditAvatar, (evt, data) => {
     .editAvatar(data)
     .then((res) => {
       userInfo.setUserAvatar(res);
+      popupWithAvatar.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
       popupWithAvatar.removePreloader('Сохранить');
-      popupWithAvatar.close();
     });
 });
 
 editButton.addEventListener('click', () => {
-  popupProfileForm.reset();
   userInfo.editUserInfo(inputName, inputDescription);
   popupWithUserInfo.open();
   profileFormValidate.resetValidation();
 });
 
 editAvatarButton.addEventListener('click', () => {
-  popupAvatarForm.reset();
   popupWithAvatar.open();
   avatarFormValidate.resetValidation();
 });

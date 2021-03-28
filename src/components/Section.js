@@ -6,10 +6,16 @@ export class Section {
   }
 
   renderAll() {
-    this._api.getInitialCards().then((init) =>{
-    init.forEach((item) => {
-      this._renderer(item);
-    });})
+    this._api
+      .getInitialCards()
+      .then((init) => {
+        init.forEach((item) => {
+          this._renderer(item);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   addItem(element) {
