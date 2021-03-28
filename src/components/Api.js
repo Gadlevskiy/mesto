@@ -18,7 +18,9 @@ export class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   getProfile() {
@@ -26,7 +28,9 @@ export class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   editProfile(user) {
@@ -39,7 +43,9 @@ export class Api {
       }),
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   editAvatar(userUrl) {
@@ -51,7 +57,9 @@ export class Api {
       }),
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   createCard(data) {
@@ -64,7 +72,9 @@ export class Api {
       }),
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   deleteCard(id) {
@@ -73,7 +83,9 @@ export class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   like(id) {
@@ -82,7 +94,9 @@ export class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   unlike(id) {
@@ -91,6 +105,8 @@ export class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .catch((err) => Promise.reject(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
