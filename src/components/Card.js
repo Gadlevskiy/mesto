@@ -65,13 +65,6 @@ export class Card {
     }
   }
 
-  // _deleteCard() {
-  //   this._api.deleteCard(this._data._id).then(() => {
-  //     document.getElementById(this._data._id).remove();
-  //     this._popup.close();
-  //   });
-  // }
-
   _setEventListeners(likeBtn) {
     this._cardImage.addEventListener('click', () =>
       this._previewPicture(this._data)
